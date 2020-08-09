@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Container, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import homeLogo from '../../icons/shoplogo.png'
 import chatIcon from '../../icons/chat.png'
@@ -9,6 +9,7 @@ import { RootStateType } from '../../reducers/rootReducer'
 import { connect, ConnectedProps, useDispatch } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { fetchCartItems, clearCart } from '../../reducers/cart/actions'
+import { get, Response } from "superagent";
 
 const mapStateToProps = (state: RootStateType) => (
     {
@@ -36,6 +37,16 @@ function HomeNavBar(props: PropsTypeFromRedux) {
     }
 
     const { token } = props
+
+    const [categories, setCategories] = useState(new Array<string>(0))
+
+    useEffect(() => {
+        get("http://localhost:3001/options/category")
+            .send()
+            .then((response: Response) => {
+                setCategories(response.body.categories)
+            })
+    }, [])
 
     useEffect(() => {
         if (isLoggedIn()) {
@@ -74,11 +85,12 @@ function HomeNavBar(props: PropsTypeFromRedux) {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
                                 <NavDropdown title="Category" id="basic-nav-dropdown" style={{ color: "white", fontWeight: "bolder", fontSize: 30 }}>
-                                    <NavDropdown.Item href="/category/books">Books</NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item href="/category/electronics">Electronics</NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item href="/category/transports">Transports</NavDropdown.Item>
+                                    {categories.map((category: string) => (
+                                        <div>
+                                            <NavDropdown.Item href={`/category/${category}`}>{category.toUpperCase()}</NavDropdown.Item>
+                                            <NavDropdown.Divider />
+                                        </div>
+                                    ))}
                                 </NavDropdown>
                             </Nav>
                         </Navbar.Collapse>

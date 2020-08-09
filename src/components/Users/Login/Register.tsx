@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import { FormPropsType } from '../../Types/CustomTypes'
 import * as Yup from 'yup'
+import { get, Response } from "superagent"
 import { useFormik } from 'formik'
 import { UserRegisterType } from '../../Types/CustomTypes'
 import { Register } from '../../../reducers/login/actions'
@@ -41,7 +42,7 @@ const validationSchema = Yup.object(
     }
 )
 
-const CityOptions: Array<string> = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Xiamen", "Changsha", "Wuhan", "Chengdu", "Chongqin", "Xi'an"]
+// const cityOptions: Array<string> = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Xiamen", "Changsha", "Wuhan", "Chengdu", "Chongqin", "Xi'an"]
 
 function RegisterForm(props: FormPropsType & PropsTypeFromRedux) {
     const handleRegister = (values: UserRegisterType) => {
@@ -50,6 +51,15 @@ function RegisterForm(props: FormPropsType & PropsTypeFromRedux) {
             console.log("Submit register form!")
         }
     }
+
+    const [cityOptions, setCityOptions] = useState(new Array<string>(0))
+
+    useEffect(() => {
+        get("http://localhost:3001/options/city")
+            .send()
+            .then((response: Response) => setCityOptions(response.body.cities));
+    }, [])
+
     const formik = useFormik<UserRegisterType>(
         {
             initialValues,
@@ -158,7 +168,7 @@ function RegisterForm(props: FormPropsType & PropsTypeFromRedux) {
                         isValid={formik.touched.city && !formik.errors.city}
                         isInvalid={!!formik.errors.city}
                     >
-                        {CityOptions.map((city, index) => <option key={index.toString()}>{city}</option>)}
+                        {cityOptions.map((city, index) => <option key={index.toString()}>{city}</option>)}
                     </Form.Control>
                     <Form.Control.Feedback type="valid">Correct City Format!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">{formik.errors.city}</Form.Control.Feedback>
