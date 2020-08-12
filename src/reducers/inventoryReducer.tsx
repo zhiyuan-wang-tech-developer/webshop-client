@@ -1,14 +1,5 @@
-import { UPDATE_ITEMS, ADD_NEW_ITEM } from "./actions";
-import { ItemType } from "../../components/Types/CustomTypes"
-
-interface InventoryStateType {
-    items: ItemType[]
-}
-
-export interface InventoryActionType {
-    type: string,
-    payload: { items: ItemType[] }
-}
+import { ADD_NEW_ITEM, UPDATE_ITEMS } from "../constants/actionTypes";
+import { ItemType, InventoryStateType, InventoryActionType } from "../utils/customTypes";
 
 const initialState: InventoryStateType = {
     items: new Array<ItemType>(0)

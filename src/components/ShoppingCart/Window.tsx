@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { ModalWindowPropsType } from '../../Types/CustomTypes'
-import { clearMyCart } from "../../../reducers/cart/actions";
+import { ModalWindowPropsType } from '../../utils/customTypes'
+import { clearMyCart } from "../../actions/cartActions";
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 import ShoppingCartOrderList from './OrderList'

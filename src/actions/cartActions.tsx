@@ -1,21 +1,19 @@
-import { ItemType, ItemOrderType } from "../../components/Types/CustomTypes"
-import { CartActionType } from "./reducer"
+import { ItemType, ItemOrderType, CartActionType, FeedbackActionType } from "../utils/customTypes"
+import {
+    ADD_ITEM_INTO_CART,
+    REMOVE_ITEM_FROM_CART,
+    CLEAR_CART,
+    INCREMENT_AMOUNT,
+    DECREMENT_AMOUNT
+} from '../constants/actionTypes'
 import { Dispatch } from "redux"
-import { RootStateType } from "../rootReducer"
+import { RootStateType } from "../reducers/rootReducer"
 import request from 'superagent'
 import { decode } from 'jsonwebtoken'
-import Config from '../../configuration'
-import { updateFeedback } from '../feedback/actions'
-import { FeedbackActionType } from '../feedback/reducer'
+import Config from '../configuration'
+import { updateFeedback } from './feedbackActions'
 
 const baseURL = Config.URL.LocalHostURL
-
-// Action Types
-export const ADD_ITEM_INTO_CART = "ADD_ITEM_INTO_CART"
-export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART"
-export const CLEAR_CART = "CLEAR_CART"
-export const INCREMENT_AMOUNT = "INCREMENT_AMOUNT"
-export const DECREMENT_AMOUNT = "DECREMENT_AMOUNT"
 
 // Action Creators
 function addItemIntoCart(item: ItemOrderType): CartActionType {

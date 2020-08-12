@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ItemCard from './Card'
 import { Container, CardColumns } from 'react-bootstrap'
 import { RootStateType } from '../../reducers/rootReducer'
-import { fetchItems } from '../../reducers/inventory/actions'
+import { fetchItems } from '../../actions/inventoryActions'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 

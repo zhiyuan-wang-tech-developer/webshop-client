@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Container, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import homeLogo from '../../icons/shoplogo.png'
 import chatIcon from '../../icons/chat.png'
-import LoginIcon from '../Users/Login/LoginIcon'
-import AvatarIcon from '../Users/Login/AvatarIcon'
-import ShoppingCartIcon from '../Users/ShoppingCart/Icon'
+import LoginIcon from '../Users/Login/Icon'
+import AvatarIcon from '../Users/Avatar/Icon'
+import ShoppingCartIcon from '../ShoppingCart/Icon'
 import { RootStateType } from '../../reducers/rootReducer'
 import { connect, ConnectedProps, useDispatch } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { fetchCartItems, clearCart } from '../../reducers/cart/actions'
+import { fetchCartItems, clearCart } from '../../actions/cartActions'
 import { get, Response } from "superagent";
 
 const mapStateToProps = (state: RootStateType) => (

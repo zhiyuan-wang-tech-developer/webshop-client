@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
-import { FormPropsType } from '../../Types/CustomTypes'
+import { FormPropsType } from '../../../utils/customTypes'
 import * as Yup from 'yup'
 import { get, Response } from "superagent"
 import { useFormik } from 'formik'
-import { UserRegisterType } from '../../Types/CustomTypes'
-import { Register } from '../../../reducers/login/actions'
+import { UserRegisterType } from '../../../utils/customTypes'
+import { Register } from '../../../actions/loginActions'
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 

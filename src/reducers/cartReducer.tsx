@@ -1,20 +1,11 @@
-import { ItemOrderType } from "../../components/Types/CustomTypes"
+import { ItemOrderType, CartStateType, CartActionType } from "../utils/customTypes"
 import {
     ADD_ITEM_INTO_CART,
     REMOVE_ITEM_FROM_CART,
     CLEAR_CART,
     INCREMENT_AMOUNT,
     DECREMENT_AMOUNT
-} from './actions'
-
-type CartStateType = {
-    items: ItemOrderType[]
-}
-
-export type CartActionType = {
-    type: string,
-    payload: { item: ItemOrderType }
-}
+} from '../constants/actionTypes'
 
 const initialState: CartStateType = {
     items: []

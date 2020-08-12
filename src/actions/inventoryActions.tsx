@@ -1,23 +1,28 @@
 import request from 'superagent'
 import { Dispatch } from 'redux'
-import { ItemType } from '../../components/Types/CustomTypes'
-import { InventoryActionType } from './reducer'
-import Config from '../../configuration'
-import { updateFeedback } from '../feedback/actions'
-import { FeedbackActionType } from '../feedback/reducer'
+import { ItemType, FeedbackActionType, InventoryActionType } from '../utils/customTypes'
+import { ADD_NEW_ITEM, UPDATE_ITEMS } from '../constants/actionTypes'
+import Config from '../configuration'
+import { updateFeedback } from './feedbackActions'
 
 const baseURL = Config.URL.LocalHostURL
 
-// action type
-export const UPDATE_ITEMS = "UPDATE_ITEMS";
-// action creator
+// action creators
+function addNewItem(item: ItemType): InventoryActionType {
+    return {
+        type: ADD_NEW_ITEM,
+        payload: { items: [item] }
+    }
+}
+
 function updateItems(items: ItemType[]): InventoryActionType {
     return {
         type: UPDATE_ITEMS,
         payload: { items }
     }
 }
-// thunk action function
+
+// thunk action functions
 export function fetchItems() {
     return (dispatch: Dispatch<InventoryActionType | FeedbackActionType>) => {
         request
@@ -33,16 +38,6 @@ export function fetchItems() {
     }
 }
 
-// action type
-export const ADD_NEW_ITEM = "ADD_NEW_ITEM";
-// action creator
-function addNewItem(item: ItemType): InventoryActionType {
-    return {
-        type: ADD_NEW_ITEM,
-        payload: { items: [item] }
-    }
-}
-// thunk action function
 export function createItem(itemToCreate: ItemType) {
     return (dispatch: Dispatch<InventoryActionType | FeedbackActionType>) => {
         // console.log(itemToCreate)
@@ -63,7 +58,6 @@ export function createItem(itemToCreate: ItemType) {
     }
 }
 
-// thunk action function
 export function updateItem(itemToUpdate: ItemType) {
     return (dispatch: Dispatch<InventoryActionType | FeedbackActionType>, getState: any) => {
         console.log(`Updating item #${itemToUpdate.id}`)
@@ -91,7 +85,6 @@ export function updateItem(itemToUpdate: ItemType) {
     }
 }
 
-// thunk action function
 export function deleteItem(id: number) {
     return (dispatch: Dispatch<InventoryActionType | FeedbackActionType>, getState: any) => {
         console.log(`Deleting item #${id}`)

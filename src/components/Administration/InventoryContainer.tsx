@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Navbar } from 'react-bootstrap';
 import InventoryTable from './InventoryTable';
 import AddWindow from './AddWindow';
-import { fetchItems } from '../../reducers/inventory/actions';
+import { fetchItems } from '../../actions/inventoryActions';
 import { RootStateType } from '../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux';
-import { ItemType } from "../Types/CustomTypes";
+import { ItemType } from "../../utils/customTypes";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 
 const mapStateToProps = (state: RootStateType) => (

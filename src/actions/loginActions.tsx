@@ -1,16 +1,11 @@
-import { UserLoginType, UserRegisterType } from '../../components/Types/CustomTypes'
 import request from 'superagent'
-import Config from '../../configuration'
-import { TokenActionType } from './reducer'
+import Config from '../configuration'
 import { Dispatch } from 'react'
-import { FeedbackActionType } from '../feedback/reducer'
-import { updateFeedback } from '../feedback/actions'
+import { updateFeedback } from './feedbackActions'
+import { UserLoginType, UserRegisterType, FeedbackActionType, TokenActionType } from '../utils/customTypes'
+import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
 
 const baseURL = Config.URL.LocalHostURL
-
-// action type
-export const STORE_JSON_WEB_TOKEN = "STORE_JSON_WEB_TOEKN"
-export const CLEAR_JSON_WEB_TOKEN = "CLEAR_JSON_WEB_TOEKN"
 
 // action creator
 function storeToken(token: string): TokenActionType {

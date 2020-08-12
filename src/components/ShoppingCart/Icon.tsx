@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Nav, OverlayTrigger, Tooltip, Badge, Image } from 'react-bootstrap'
-import shoppingCartIcon from '../../../icons/shoppingcart.png'
+import shoppingCartIcon from '../../icons/shoppingcart.png'
 import ShoppingCartWindow from './Window'
-import { RootStateType } from '../../../reducers/rootReducer'
+import { RootStateType } from '../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 
 const mapStateToProps = (state: RootStateType) => (

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Modal, Button, Nav, OverlayTrigger, Tooltip, Image } from 'react-bootstrap'
-import loginIcon from '../../../icons/login.png'
+import { Modal, Button } from 'react-bootstrap'
 import LoginForm from "./Form"
 import RegisterForm from './Register'
-import { ModalWindowPropsType } from '../../Types/CustomTypes'
+import { ModalWindowPropsType } from '../../../utils/customTypes'
 
 enum FormType { Login = 1, Register = 2 }
 
@@ -36,30 +35,4 @@ function LoginWindow(props: ModalWindowPropsType) {
     )
 }
 
-function LoginIcon() {
-    const [loginWindowShow, setLoginWindowShow] = React.useState(false)
-    const openLoginWindow = () => setLoginWindowShow(true)
-    const closeLoginWindow = () => setLoginWindowShow(false)
-    return (
-        <Nav.Link>
-            <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={<Tooltip id="login-tooltip">Login/Register</Tooltip>}
-            >
-                <Image
-                    src={loginIcon}
-                    alt="login"
-                    width={70}
-                    height={43}
-                    rounded
-                    className="d-inline-block align-top img-fluid mx-auto float-right"
-                    onClick={openLoginWindow}
-                />
-            </OverlayTrigger>
-            <LoginWindow show={loginWindowShow} onHide={closeLoginWindow} />
-        </Nav.Link>
-    )
-}
-
-export default LoginIcon
+export default LoginWindow

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ModalWindowPropsType } from "../Types/CustomTypes";
+import { ModalWindowPropsType } from "../../utils/customTypes";
 import ItemProfileForm from './ItemProfileForm';
 import { useFormik } from 'formik';
 import { initialValues, validationSchema } from "./ItemProfileForm";
-import { createItem } from "../../reducers/inventory/actions";
+import { createItem } from "../../actions/inventoryActions";
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 

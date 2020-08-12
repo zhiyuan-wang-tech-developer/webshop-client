@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
-import { ItemOrderType } from '../../Types/CustomTypes'
-import { RootStateType } from '../../../reducers/rootReducer'
-import { removeFromMyCart, incrementAmountInMyCart, decrementAmountInMyCart } from '../../../reducers/cart/actions'
+import { ItemOrderType } from '../../utils/customTypes'
+import { RootStateType } from '../../reducers/rootReducer'
+import { removeFromMyCart, incrementAmountInMyCart, decrementAmountInMyCart } from '../../actions/cartActions'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 

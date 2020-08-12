@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Button, Nav, OverlayTrigger, Tooltip, Image, ListGroup } from 'react-bootstrap'
-import avatar from '../../../icons/avatar.png'
-import { ModalWindowPropsType } from '../../Types/CustomTypes'
+import { Modal, Button, ListGroup } from 'react-bootstrap'
+import { ModalWindowPropsType } from '../../../utils/customTypes'
 import { RootStateType } from '../../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { Logout } from '../../../reducers/login/actions'
+import { Logout } from '../../../actions/loginActions'
 import { decode } from 'jsonwebtoken'
 
 const mapStateToProps = (state: RootStateType) => (
@@ -104,35 +103,4 @@ function AvatarWindow(props: ModalWindowPropsType & PropsTypeFromRedux) {
     )
 }
 
-const AvatarWindowConnected = connector(AvatarWindow)
-
-function AvatarIcon() {
-    const [avatarWindowShow, setAvatarWindowShow] = React.useState(false)
-    const openAvatarWindow = () => setAvatarWindowShow(true)
-    const closeAvatarWindow = () => setAvatarWindowShow(false)
-    return (
-        <Nav.Link>
-            <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={<Tooltip id="avatar-tooltip">Avatar</Tooltip>}
-            >
-                <Image
-                    src={avatar}
-                    alt="avatar"
-                    width={70}
-                    height={43}
-                    rounded
-                    className="d-inline-block align-top img-fluid mx-auto float-right"
-                    onClick={openAvatarWindow}
-                />
-            </OverlayTrigger>
-            <AvatarWindowConnected
-                show={avatarWindowShow}
-                onHide={closeAvatarWindow}
-            />
-        </Nav.Link>
-    )
-}
-
-export default AvatarIcon
+export default connector(AvatarWindow)

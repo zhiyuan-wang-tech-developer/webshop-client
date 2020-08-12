@@ -1,14 +1,5 @@
-import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from './actions'
-
-type FeedbackStateType = {
-    message: string | null,
-    timestamp: string | null
-}
-
-export type FeedbackActionType = {
-    type: string,
-    payload: { message: string | null }
-}
+import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
+import { FeedbackStateType, FeedbackActionType } from '../utils/customTypes'
 
 const initialState: FeedbackStateType = {
     message: null,

@@ -1,8 +1,6 @@
-import { FeedbackActionType } from "./reducer"
+import { FeedbackActionType } from "../utils/customTypes"
 import { Dispatch } from "react"
-
-export const UPDATE_FEEDBACK = "UPDATE_FEEDBACK"
-export const CLEAR_FEEDBACK = "CLEAR_FEEDBACK"
+import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
 
 // Redux action creator
 export const updateFeedback = (feedbackMessage: string): FeedbackActionType => ({

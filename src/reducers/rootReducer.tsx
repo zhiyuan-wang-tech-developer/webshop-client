@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import inventoryReducer from "./inventory/reducer";
-import cartReducer from "./cart/reducer";
-import tokenReducer from "./login/reducer";
-import feedbackReducer from "./feedback/reducer";
+import inventoryReducer from "./inventoryReducer";
+import cartReducer from "./cartReducer";
+import tokenReducer from "./loginReducer";
+import feedbackReducer from "./feedbackReducer";
 
 const rootReducer = combineReducers(
     {
