@@ -2,7 +2,7 @@ import request from 'superagent'
 import Config from '../configuration'
 import { Dispatch } from 'react'
 import { updateFeedback } from './feedbackActions'
-import { UserLoginType, UserRegisterType, FeedbackActionType, TokenActionType } from '../utils/customTypes'
+import { UserLoginType, UserRegisterType, FeedbackActionType, TokenActionType } from '../utils/appTypes'
 import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
 
 const baseURL = Config.URL.LocalHostURL

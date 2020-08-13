@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import LoginForm from "./Form"
 import RegisterForm from './Register'
-import { ModalWindowPropsType } from '../../../utils/customTypes'
+import { ModalWindowPropsType } from '../../../utils/appTypes'
 
 enum FormType { Login = 1, Register = 2 }
 

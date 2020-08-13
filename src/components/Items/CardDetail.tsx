@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Button, Image } from 'react-bootstrap'
-import { ModalWindowPropsType, ItemType } from '../../utils/customTypes'
+import { ModalWindowPropsType, ItemType } from '../../utils/appTypes'
 import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
 import { addToMyCart } from '../../actions/cartActions'
 import { connect, ConnectedProps } from 'react-redux'

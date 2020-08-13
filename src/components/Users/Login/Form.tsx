@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button, Col, Row } from 'react-bootstrap'
-import { FormPropsType, UserLoginType } from '../../../utils/customTypes'
+import { FormPropsType, UserLoginType } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Login } from '../../../actions/loginActions'

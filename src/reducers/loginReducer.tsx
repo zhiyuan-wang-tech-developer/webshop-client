@@ -1,5 +1,5 @@
 import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
-import { TokenStateType, TokenActionType } from '../utils/customTypes'
+import { TokenStateType, TokenActionType } from '../utils/appTypes'
 
 const initialState: TokenStateType = {
     token: null

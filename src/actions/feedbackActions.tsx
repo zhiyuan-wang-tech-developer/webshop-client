@@ -1,4 +1,4 @@
-import { FeedbackActionType } from "../utils/customTypes"
+import { FeedbackActionType } from "../utils/appTypes"
 import { Dispatch } from "react"
 import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
 

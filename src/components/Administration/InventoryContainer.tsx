@@ -5,7 +5,7 @@ import AddWindow from './AddWindow';
 import { fetchItems } from '../../actions/inventoryActions';
 import { RootStateType } from '../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux';
-import { ItemType } from "../../utils/customTypes";
+import { ItemType } from "../../utils/appTypes";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 
 const mapStateToProps = (state: RootStateType) => (

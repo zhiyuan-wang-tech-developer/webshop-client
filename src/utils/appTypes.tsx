@@ -1,10 +1,10 @@
 export interface ModalWindowPropsType {
     show: boolean,
-    onHide: () => void
+    onHide: VoidFunction
 }
 
 export interface FormPropsType {
-    switchForm: () => void
+    switchForm: VoidFunction
 }
 
 export type UserLoginType = {

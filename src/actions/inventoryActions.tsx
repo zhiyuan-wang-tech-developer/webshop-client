@@ -1,6 +1,6 @@
 import request from 'superagent'
 import { Dispatch } from 'redux'
-import { ItemType, FeedbackActionType, InventoryActionType } from '../utils/customTypes'
+import { ItemType, FeedbackActionType, InventoryActionType } from '../utils/appTypes'
 import { ADD_NEW_ITEM, UPDATE_ITEMS } from '../constants/actionTypes'
 import Config from '../configuration'
 import { updateFeedback } from './feedbackActions'

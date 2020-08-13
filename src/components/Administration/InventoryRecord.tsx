@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import ModifyWindow from './ModifyWIndow'
-import { ItemType } from '../../utils/customTypes'
+import { ItemType } from '../../utils/appTypes'
 import { deleteItem } from "../../actions/inventoryActions"
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'

@@ -1,5 +1,5 @@
 import { ADD_NEW_ITEM, UPDATE_ITEMS } from "../constants/actionTypes";
-import { ItemType, InventoryStateType, InventoryActionType } from "../utils/customTypes";
+import { ItemType, InventoryStateType, InventoryActionType } from "../utils/appTypes";
 
 const initialState: InventoryStateType = {
     items: new Array<ItemType>(0)

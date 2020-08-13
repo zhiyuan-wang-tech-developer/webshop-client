@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Container } from 'react-bootstrap'
 import InventoryRecord from './InventoryRecord'
-import { ItemType } from '../../utils/customTypes'
+import { ItemType } from '../../utils/appTypes'
 
 export const InventoryRecordExample: ItemType = {
     id: 1234,

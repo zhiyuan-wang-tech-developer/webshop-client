@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
-import { ItemOrderType } from '../../utils/customTypes'
+import { ItemOrderType } from '../../utils/appTypes'
 import { RootStateType } from '../../reducers/rootReducer'
 import { removeFromMyCart, incrementAmountInMyCart, decrementAmountInMyCart } from '../../actions/cartActions'
 import { connect, ConnectedProps } from 'react-redux'

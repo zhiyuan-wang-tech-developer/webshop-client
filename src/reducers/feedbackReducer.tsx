@@ -1,5 +1,5 @@
 import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
-import { FeedbackStateType, FeedbackActionType } from '../utils/customTypes'
+import { FeedbackStateType, FeedbackActionType } from '../utils/appTypes'
 
 const initialState: FeedbackStateType = {
     message: null,

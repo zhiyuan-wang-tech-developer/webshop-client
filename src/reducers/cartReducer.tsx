@@ -1,4 +1,4 @@
-import { ItemOrderType, CartStateType, CartActionType } from "../utils/customTypes"
+import { ItemOrderType, CartStateType, CartActionType } from "../utils/appTypes"
 import {
     ADD_ITEM_INTO_CART,
     REMOVE_ITEM_FROM_CART,

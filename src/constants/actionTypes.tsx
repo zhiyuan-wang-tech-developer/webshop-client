@@ -10,8 +10,8 @@ export const UPDATE_FEEDBACK = "UPDATE_FEEDBACK"
 export const CLEAR_FEEDBACK = "CLEAR_FEEDBACK"
 
 // inventory action types
-export const ADD_NEW_ITEM = "ADD_NEW_ITEM";
-export const UPDATE_ITEMS = "UPDATE_ITEMS";
+export const ADD_NEW_ITEM = "ADD_NEW_ITEM"
+export const UPDATE_ITEMS = "UPDATE_ITEMS"
 
 // login action types
 export const STORE_JSON_WEB_TOKEN = "STORE_JSON_WEB_TOEKN"
