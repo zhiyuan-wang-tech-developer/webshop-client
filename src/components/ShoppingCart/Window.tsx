@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { ModalWindowPropsType } from '../../utils/appTypes'
+import { ModalWindowProps } from '../../utils/appTypes'
 import { clearMyCart } from "../../actions/cartActions";
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
@@ -16,7 +16,7 @@ const connector = connect(null, mapDispatchToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-function ShoppingCartWindow(props: ModalWindowPropsType & PropsFromRedux) {
+function ShoppingCartWindow(props: ModalWindowProps & PropsFromRedux) {
     const handlePay = () => {
         console.log("Pay your items!")
         handleClear()

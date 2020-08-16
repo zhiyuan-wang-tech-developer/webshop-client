@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import LoginForm from "./Form"
 import RegisterForm from './Register'
-import { ModalWindowPropsType } from '../../../utils/appTypes'
+import { ModalWindowProps } from '../../../utils/appTypes'
 
 enum FormType { Login = 1, Register = 2 }
 
-function LoginWindow(props: ModalWindowPropsType) {
+function LoginWindow(props: ModalWindowProps) {
     const [formType, setFormType] = useState(FormType.Login)
     const switchToLoginForm = () => setFormType(FormType.Login)
     const switchToRegisterForm = () => setFormType(FormType.Register)

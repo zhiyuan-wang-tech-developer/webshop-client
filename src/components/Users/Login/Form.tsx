@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button, Col, Row } from 'react-bootstrap'
-import { FormPropsType, UserLoginType } from '../../../utils/appTypes'
+import { FormProps, UserLoginType } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Login } from '../../../actions/loginActions'
@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
         .required("The password is a required field!")
 })
 
-function LoginForm(props: FormPropsType & PropsTypeFromRedux) {
+function LoginForm(props: FormProps & PropsTypeFromRedux) {
     const handleLogin = (values: UserLoginType) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.Login(values)

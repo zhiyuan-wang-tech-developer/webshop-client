@@ -1,32 +1,19 @@
 import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
-import ItemCardDetail from './CardDetail'
+import ProductCardDetail from './CardDetail'
 import { ItemType } from '../../utils/appTypes'
-import { addToMyCart } from '../../actions/cartActions'
-import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
-    {
-        addToMyCart
-    },
-    dispatch
-)
+type PropsType = {
+    item: ItemType,
+    addToMyCart: () => {}
+}
 
-const connector = connect(null, mapDispatchToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-function ItemCard(props: { item: ItemType } & PropsFromRedux) {
+export default function ProductCard(props: PropsType) {
     const [showCardDetail, setShowCardDetail] = useState(false)
 
     const openCardDetail = () => setShowCardDetail(true)
     const closeCardDetail = () => setShowCardDetail(false)
-
-    const addToCart = () => {
-        props.addToMyCart(props.item.id)
-    }
 
     return (
         <React.Fragment>
@@ -37,19 +24,17 @@ function ItemCard(props: { item: ItemType } & PropsFromRedux) {
                     <Card.Text>
                         <span>{props.item.description}</span>
                         <br />
-                        &yen;&nbsp;{props.item.price}
+                    &yen;&nbsp;{props.item.price}
                     </Card.Text>
                     <Button
                         variant="danger"
-                        onClick={addToCart}
+                        onClick={props.addToMyCart}
                     >
                         <span className="fa fa-cart-arrow-down fa-lg">&nbsp;&nbsp;Add To Cart</span>
                     </Button>
                 </Card.Body>
             </Card>
-            <ItemCardDetail show={showCardDetail} onHide={closeCardDetail} item={props.item} />
+            <ProductCardDetail show={showCardDetail} onHide={closeCardDetail} item={props.item} addToMyCard={props.addToMyCart} />
         </React.Fragment>
     )
 }
-
-export default connector(ItemCard)

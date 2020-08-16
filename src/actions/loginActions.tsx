@@ -1,4 +1,4 @@
-import request from 'superagent'
+import request, { Response } from 'superagent'
 import Config from '../configuration'
 import { Dispatch } from 'react'
 import { updateFeedback } from './feedbackActions'
@@ -29,25 +29,21 @@ export function Register(user: UserRegisterType) {
             .post(`${baseURL}/users`)
             .set('content-type', 'application/json')
             .send(user)
-            .then((response: any) => {
-                console.log(JSON.stringify(response.body))
-                if (response.body.createdUser) {
-                    // Note: createdUser.password is excluded.
-                    // createdUser.shoppingCart is included.
-                    delete user.password
-                    // const { shoppingCart: any } = response.body.createdUser
-                    delete response.body.createdUser.shoppingCart
-                    if (JSON.stringify(response.body.createdUser) === JSON.stringify(user)) {
-                        console.log("Successful register!")
-                        dispatch(updateFeedback("Successful register!"))
-                    }
-                    else {
-                        throw new Error("Failed register!");
-                    }
-                }
-                else {
+            .then((response: Response) => {
+                if (!response.body.createdUser) {
                     throw new Error("After register, the response body does not contain 'createdUser'");
                 }
+                // Note: 
+                // createdUser.password is excluded.
+                // createdUser.shoppingCart is included.
+                delete user.password
+                // const { shoppingCart: any } = response.body.createdUser
+                delete response.body.createdUser.shoppingCart
+                if (JSON.stringify(response.body.createdUser) !== JSON.stringify(user)) {
+                    throw new Error("Failed register!");
+                }
+                console.log("Successful register!")
+                dispatch(updateFeedback("Successful register!"))
             })
             .catch((err) => {
                 console.error(err)
@@ -61,15 +57,13 @@ export function Login(user: UserLoginType) {
         request
             .post(`${baseURL}/users/login`)
             .send(user)
-            .then((response: any) => {
-                if (response.body.token) {
-                    console.log(`User logged in with token ${JSON.stringify(response.body)}`)
-                    dispatch(storeToken(response.body.token))
-                    dispatch(updateFeedback("User logged in"))
-                }
-                else {
+            .then((response: Response) => {
+                if (!response.body.token) {
                     throw new Error("Token not found... Login failed...");
                 }
+                console.log(`User logged in with token ${JSON.stringify(response.body)}`)
+                dispatch(storeToken(response.body.token))
+                dispatch(updateFeedback("User logged in"))
             })
             .catch((err) => {
                 console.error(err)

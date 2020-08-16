@@ -1,27 +1,14 @@
 import React from 'react'
+import { ItemType, ModalWindowProps } from '../../utils/appTypes'
 import { Modal, Button, Image } from 'react-bootstrap'
-import { ModalWindowPropsType, ItemType } from '../../utils/appTypes'
 import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
-import { addToMyCart } from '../../actions/cartActions'
-import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
-    {
-        addToMyCart
-    },
-    dispatch
-)
+type PropsType = {
+    item: ItemType,
+    addToMyCard: () => {}
+} & ModalWindowProps
 
-const connector = connect(null, mapDispatchToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-function ItemCardDetail(props: ModalWindowPropsType & { item: ItemType } & PropsFromRedux) {
-    const addToCart = () => {
-        props.addToMyCart(props.item.id)
-    }
-
+export default function ProductCardDetail(props: PropsType) {
     return (
         <React.Fragment>
             <Modal
@@ -46,7 +33,7 @@ function ItemCardDetail(props: ModalWindowPropsType & { item: ItemType } & Props
                     <h4>Quantity in Stock: {props.item.quantityInStock}</h4>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={addToCart}>
+                    <Button variant="danger" onClick={props.addToMyCard}>
                         <span className="fa fa-cart-plus fa-lg"> Add To Cart</span>
                     </Button>
                 </Modal.Footer>
@@ -54,5 +41,3 @@ function ItemCardDetail(props: ModalWindowPropsType & { item: ItemType } & Props
         </React.Fragment >
     )
 }
-
-export default connector(ItemCardDetail)

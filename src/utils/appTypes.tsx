@@ -1,9 +1,9 @@
-export interface ModalWindowPropsType {
+export interface ModalWindowProps {
     show: boolean,
     onHide: VoidFunction
 }
 
-export interface FormPropsType {
+export interface FormProps {
     switchForm: VoidFunction
 }
 
@@ -75,4 +75,18 @@ export type TokenStateType = {
 export type TokenActionType = {
     type: string,
     payload: { token: string | null }
+}
+
+export type AdminUserGroup = {
+    id: number,
+    name: string,
+    description: string
+}
+
+export type AdminUser = {
+    id?: number,
+    name: string,
+    email: string,
+    password?: string,
+    adminUserGroups: AdminUserGroup[]
 }

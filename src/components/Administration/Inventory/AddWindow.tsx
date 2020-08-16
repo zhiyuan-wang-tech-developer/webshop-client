@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ModalWindowPropsType } from "../../utils/appTypes";
+import { ModalWindowProps } from "../../../utils/appTypes";
 import ItemProfileForm from './ItemProfileForm';
 import { useFormik } from 'formik';
 import { initialValues, validationSchema } from "./ItemProfileForm";
-import { createItem } from "../../actions/inventoryActions";
+import { createItem } from "../../../actions/inventoryActions";
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 
@@ -19,7 +19,7 @@ const connector = connect(null, mapDispatchToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type AddWindowPropsType = ModalWindowPropsType & PropsFromRedux;
+type AddWindowPropsType = ModalWindowProps & PropsFromRedux;
 
 function AddWindow(props: AddWindowPropsType) {
     const handleAdd = (values: any) => {

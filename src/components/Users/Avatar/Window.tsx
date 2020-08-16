@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Button, ListGroup } from 'react-bootstrap'
-import { ModalWindowPropsType } from '../../../utils/appTypes'
+import { ModalWindowProps } from '../../../utils/appTypes'
 import { RootStateType } from '../../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
@@ -33,7 +33,7 @@ type TokenPayloadInfo = {
     issuer?: string | null
 }
 
-function AvatarWindow(props: ModalWindowPropsType & PropsTypeFromRedux) {
+function AvatarWindow(props: ModalWindowProps & PropsTypeFromRedux) {
 
     const handleLogout = () => {
         props.onHide()

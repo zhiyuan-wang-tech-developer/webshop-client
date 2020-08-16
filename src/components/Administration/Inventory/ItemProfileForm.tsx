@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Col } from 'react-bootstrap';
 import * as Yup from 'yup'
-import { ItemType } from '../../utils/appTypes';
+import { ItemType } from '../../../utils/appTypes';
 
 export const initialValues: Partial<ItemType> = {
     name: '',

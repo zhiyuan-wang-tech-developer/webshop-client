@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
-import { FormPropsType } from '../../../utils/appTypes'
+import { FormProps } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { get, Response } from "superagent"
 import { useFormik } from 'formik'
@@ -44,7 +44,7 @@ const validationSchema = Yup.object(
 
 // const cityOptions: Array<string> = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Xiamen", "Changsha", "Wuhan", "Chengdu", "Chongqin", "Xi'an"]
 
-function RegisterForm(props: FormPropsType & PropsTypeFromRedux) {
+function RegisterForm(props: FormProps & PropsTypeFromRedux) {
     const handleRegister = (values: UserRegisterType) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.Register(values)
