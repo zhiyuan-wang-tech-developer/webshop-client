@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { ItemOrder } from '../../utils/appTypes'
-import { RootState } from '../../reducers/rootReducer'
+import { RootState } from '../../reducer/rootReducer'
 import { removeFromMyCart, incrementAmountInMyCart, decrementAmountInMyCart } from '../../actions/cartActions'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'

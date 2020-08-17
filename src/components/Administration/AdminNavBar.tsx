@@ -1,8 +1,9 @@
 import React from 'react'
 import { Navbar, Container, Col, Row, Dropdown, DropdownButton } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 
 export default function AdminNavBar() {
+    const { url } = useRouteMatch()
     return (
         <Container fluid>
             <Row>
@@ -14,17 +15,13 @@ export default function AdminNavBar() {
                     </Col>
                     <Col sm={{ span: 0, offset: 1 }}>
                         <DropdownButton id="dropdown-item-button" variant="success" title="Configuration">
-                            <Dropdown.Item as="a">
-                                <Link to="/admin/admin-users">admin-users</Link>
-                            </Dropdown.Item>
+                            <Dropdown.Item href={`${url}/admin-users`}>admin-users</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item as="a">
-                                <Link to="/admin/groups">groups</Link>
-                            </Dropdown.Item>
+                            <Dropdown.Item href={`${url}/groups`}>groups</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item as="a">
-                                <Link to="/admin/authorities">authorities</Link>
-                            </Dropdown.Item>
+                            <Dropdown.Item href={`${url}/authorities`}>authorities</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item href={`${url}/inventory`}>inventory</Dropdown.Item>
                         </DropdownButton>
                     </Col>
                     <Col sm={{ span: 0, offset: 8 }}>

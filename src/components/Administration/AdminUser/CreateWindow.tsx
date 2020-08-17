@@ -7,7 +7,7 @@ import ProfileForm, { initialValues, validationSchema } from './ProfileForm'
 type CreateWindowProps = ModalWindowProps & {
     create: (adminUser: AdminUser) => void
 }
-
+// TODO: combine create & edit windows to one window
 function CreateWindow(props: CreateWindowProps) {
     const handleCreateEvent = (values: AdminUser) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {

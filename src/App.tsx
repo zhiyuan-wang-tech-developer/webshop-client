@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import GlobalReduxStore from './store';
+import GlobalReduxStore from './store/store';
 import HomePage from './components/Home/HomePage';
 import AdminPage from './components/Administration/AdminPage';
 
@@ -16,9 +16,12 @@ function Main() {
               {/* The exact param disables the partial matching for a route and makes sure that 
               it only returns the route if the path is an EXACT match to the current url. */}
               <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
+              <Route path="/home">
                 <HomePage />
               </Route>
-              <Route exact path="/admin">
+              <Route path="/admin">
                 <AdminPage />
               </Route>
             </Provider>

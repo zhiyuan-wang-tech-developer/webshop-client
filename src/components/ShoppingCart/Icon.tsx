@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Nav, OverlayTrigger, Tooltip, Badge, Image } from 'react-bootstrap'
 import shoppingCartIcon from '../../icons/shoppingcart.png'
 import ShoppingCartWindow from './Window'
-import { RootState } from '../../reducers/rootReducer'
+import { RootState } from '../../reducer/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 
 const mapStateToProps = (state: RootState) => (

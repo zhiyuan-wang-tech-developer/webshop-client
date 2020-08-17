@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Button, ListGroup } from 'react-bootstrap'
 import { ModalWindowProps } from '../../../utils/appTypes'
-import { RootState } from '../../../reducers/rootReducer'
+import { RootState } from '../../../reducer/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { Logout } from '../../../actions/loginActions'

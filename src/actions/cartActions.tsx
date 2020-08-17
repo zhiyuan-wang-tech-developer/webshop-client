@@ -1,7 +1,7 @@
 import request, { Response } from 'superagent'
 import { Dispatch } from "redux"
 import { decode } from 'jsonwebtoken'
-import { RootState } from "../reducers/rootReducer"
+import { RootState } from "../reducer/rootReducer"
 import { updateFeedback } from './feedbackActions'
 import { Item, ItemOrder, CartAction, FeedbackAction } from "../utils/appTypes"
 import {

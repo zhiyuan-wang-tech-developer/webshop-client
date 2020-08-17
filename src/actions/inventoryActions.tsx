@@ -1,7 +1,7 @@
 import request, { Response } from 'superagent'
 import { Dispatch } from 'redux'
 import Config from '../configuration'
-import { RootState } from "../reducers/rootReducer"
+import { RootState } from "../reducer/rootReducer"
 import { updateFeedback } from './feedbackActions'
 import { Item, FeedbackAction, InventoryAction } from '../utils/appTypes'
 import { ADD_NEW_ITEM, UPDATE_ITEMS } from '../constants/actionTypes'

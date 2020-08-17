@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { RootState } from '../../reducers/rootReducer'
+import { RootState } from '../../reducer/rootReducer'
 import { fetchItems } from '../../actions/inventoryActions'
 import { addToMyCart } from '../../actions/cartActions'
 import ProductCards from './Cards'

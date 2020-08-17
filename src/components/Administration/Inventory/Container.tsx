@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import InventoryTable from './Table';
 import AddWindow from './AddWindow';
 import { fetchItems } from '../../../actions/inventoryActions';
-import { RootState } from '../../../reducers/rootReducer'
+import { RootState } from '../../../reducer/rootReducer'
 import { connect, ConnectedProps } from 'react-redux';
 import { Item } from "../../../utils/appTypes";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";

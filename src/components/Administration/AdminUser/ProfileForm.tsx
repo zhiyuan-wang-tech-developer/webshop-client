@@ -62,25 +62,39 @@ export default function ProfileForm(props: { formik: any }) {
             .catch(console.warn)
     }, [])
 
-    const selectAvailableGroup = (event: React.MouseEvent<HTMLSelectElement>) => {
+    /**
+     * This method is to select a group from the given groups (either availableGroups or assignedGroups). 
+     * The input setGroup is either setGroupToAssign or setGroupToRemove, 
+     * depending on the input the type of the input groups.
+     * 
+     * selectAvailableGroup === selectGroup(availableGroups, setGroupToAssign)
+     * selectAssignedGroup  === selectGroup(assignedGroups, setGroupToRemove)
+     */
+    const selectGroup = (groups: AdminUserGroup[], setGroup: Function) => (event: React.MouseEvent<HTMLSelectElement>) => {
         const { value } = event.target as HTMLOptionElement
-        const groupToAssign = availableGroups.find(group => group.id.toString() === value)
-        if (groupToAssign) {
-            setGroupToAssign(groupToAssign)
-        } else {
-            setGroupToAssign(null)
-        }
+        const group = groups.find(group => group.id.toString() === value)
+        setGroup(group ? group : null)
     }
 
-    const selectAssignedGroup = (event: React.MouseEvent<HTMLSelectElement>) => {
-        const { value } = event.target as HTMLOptionElement
-        const groupToRemove = assignedGroups.find(group => group.id.toString() === value)
-        if (groupToRemove) {
-            setGroupToRemove(groupToRemove)
-        } else {
-            setGroupToRemove(null)
-        }
-    }
+    // const selectAvailableGroup = (event: React.MouseEvent<HTMLSelectElement>) => {
+    //     const { value } = event.target as HTMLOptionElement
+    //     const groupToAssign = availableGroups.find(group => group.id.toString() === value)
+    //     if (groupToAssign) {
+    //         setGroupToAssign(groupToAssign)
+    //     } else {
+    //         setGroupToAssign(null)
+    //     }
+    // }
+
+    // const selectAssignedGroup = (event: React.MouseEvent<HTMLSelectElement>) => {
+    //     const { value } = event.target as HTMLOptionElement
+    //     const groupToRemove = assignedGroups.find(group => group.id.toString() === value)
+    //     if (groupToRemove) {
+    //         setGroupToRemove(groupToRemove)
+    //     } else {
+    //         setGroupToRemove(null)
+    //     }
+    // }
 
     const addUserToGroup = () => {
         if (groupToAssign && !assignedGroups.find(group => group.id === groupToAssign.id)) {
@@ -180,7 +194,8 @@ export default function ProfileForm(props: { formik: any }) {
                         name="availableGroups"
                         as="select"
                         size="sm"
-                        onClick={selectAvailableGroup}
+                        // onClick={selectAvailableGroup}
+                        onClick={selectGroup(availableGroups, setGroupToAssign)}
                         onBlur={handleBlur}
                         isValid={touched.adminUserGroups && !errors.adminUserGroups}
                         isInvalid={!!errors.adminUserGroups}
@@ -205,7 +220,8 @@ export default function ProfileForm(props: { formik: any }) {
                         name="assignedGroups"
                         as="select"
                         size="sm"
-                        onClick={selectAssignedGroup}
+                        // onClick={selectAssignedGroup}
+                        onClick={selectGroup(assignedGroups, setGroupToRemove)}
                         onBlur={handleBlur}
                         isValid={touched.adminUserGroups && !errors.adminUserGroups}
                         isInvalid={!!errors.adminUserGroups}
