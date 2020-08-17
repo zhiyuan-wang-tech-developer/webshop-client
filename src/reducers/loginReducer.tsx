@@ -1,11 +1,11 @@
 import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
-import { TokenStateType, TokenActionType } from '../utils/appTypes'
+import { TokenState, TokenAction } from '../utils/appTypes'
 
-const initialState: TokenStateType = {
+const initialState: TokenState = {
     token: null
 }
 
-const tokenReducer = (state = initialState, action: TokenActionType): TokenStateType => {
+const tokenReducer = (state = initialState, action: TokenAction): TokenState => {
     switch (action.type) {
         case STORE_JSON_WEB_TOKEN:
             return { token: action.payload.token }

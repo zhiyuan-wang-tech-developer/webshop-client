@@ -1,10 +1,10 @@
 import React from 'react'
-import { ItemType, ModalWindowProps } from '../../utils/appTypes'
+import { Item, ModalWindowProps } from '../../utils/appTypes'
 import { Modal, Button, Image } from 'react-bootstrap'
 import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
 
 type PropsType = {
-    item: ItemType,
+    item: Item,
     addToMyCard: () => {}
 } & ModalWindowProps
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import GlobalReduxStore from './reducers/store';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import './App.css';
+import GlobalReduxStore from './store';
 import HomePage from './components/Home/HomePage';
 import AdminPage from './components/Administration/AdminPage';
 

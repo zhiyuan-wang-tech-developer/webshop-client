@@ -1,21 +1,21 @@
+import { Dispatch } from 'redux'
 import request, { Response } from 'superagent'
 import Config from '../configuration'
-import { Dispatch } from 'react'
 import { updateFeedback } from './feedbackActions'
-import { UserLoginType, UserRegisterType, FeedbackActionType, TokenActionType } from '../utils/appTypes'
+import { LoginUser, RegisterUser, FeedbackAction, TokenAction } from '../utils/appTypes'
 import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
 
 const baseURL = Config.URL.LocalHostURL
 
 // action creator
-function storeToken(token: string): TokenActionType {
+function storeToken(token: string): TokenAction {
     return {
         type: STORE_JSON_WEB_TOKEN,
         payload: { token }
     }
 }
 
-function clearToken(): TokenActionType {
+function clearToken(): TokenAction {
     return {
         type: CLEAR_JSON_WEB_TOKEN,
         payload: { token: null }
@@ -23,8 +23,8 @@ function clearToken(): TokenActionType {
 }
 
 // Thunk action functions
-export function Register(user: UserRegisterType) {
-    return (dispatch: Dispatch<FeedbackActionType>) => {
+export function Register(user: RegisterUser) {
+    return (dispatch: Dispatch<FeedbackAction>) => {
         request
             .post(`${baseURL}/users`)
             .set('content-type', 'application/json')
@@ -52,8 +52,8 @@ export function Register(user: UserRegisterType) {
     }
 }
 
-export function Login(user: UserLoginType) {
-    return (dispatch: Dispatch<TokenActionType | FeedbackActionType>) => {
+export function Login(user: LoginUser) {
+    return (dispatch: Dispatch<TokenAction | FeedbackAction>) => {
         request
             .post(`${baseURL}/users/login`)
             .send(user)
@@ -73,7 +73,7 @@ export function Login(user: UserLoginType) {
 }
 
 export function Logout() {
-    return (dispatch: Dispatch<TokenActionType>) => {
+    return (dispatch: Dispatch<TokenAction>) => {
         dispatch(clearToken())
     }
 }

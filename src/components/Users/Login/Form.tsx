@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button, Col, Row } from 'react-bootstrap'
-import { FormProps, UserLoginType } from '../../../utils/appTypes'
+import { FormProps, LoginUser } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Login } from '../../../actions/loginActions'
@@ -18,7 +18,7 @@ const connector = connect(null, mapDispatchToProps)
 
 type PropsTypeFromRedux = ConnectedProps<typeof connector>
 
-const initialValues: UserLoginType = {
+const initialValues: LoginUser = {
     email: "",
     password: ""
 }
@@ -36,7 +36,7 @@ const validationSchema = Yup.object({
 })
 
 function LoginForm(props: FormProps & PropsTypeFromRedux) {
-    const handleLogin = (values: UserLoginType) => {
+    const handleLogin = (values: LoginUser) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.Login(values)
             console.log("Submit login form!")

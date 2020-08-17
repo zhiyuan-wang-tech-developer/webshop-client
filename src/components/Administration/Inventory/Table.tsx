@@ -1,9 +1,9 @@
 import React from 'react'
 import { Table, Container } from 'react-bootstrap'
 import InventoryRecord from './Record'
-import { ItemType } from '../../../utils/appTypes'
+import { Item } from '../../../utils/appTypes'
 
-export const InventoryRecordExample: ItemType = {
+export const InventoryRecordExample: Item = {
     id: 1234,
     name: "item 1",
     description: "This paragraph is a product desciption.",
@@ -13,7 +13,7 @@ export const InventoryRecordExample: ItemType = {
     quantityInStock: 10
 }
 
-export default function InventoryTable(props: { items: ItemType[] }) {
+export default function InventoryTable(props: { items: Item[] }) {
     console.log(props.items)
     return (
         <Container fluid style={{ paddingTop: 60 }}>

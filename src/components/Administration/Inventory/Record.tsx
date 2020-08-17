@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import ModifyWindow from './ModifyWIndow'
-import { ItemType } from '../../../utils/appTypes'
+import { Item } from '../../../utils/appTypes'
 import { deleteItem } from "../../../actions/inventoryActions"
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
@@ -17,7 +17,7 @@ const connector = connect(null, mapDispatchToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type InventoryRecordPropsType = { item: ItemType } & PropsFromRedux
+type InventoryRecordPropsType = { item: Item } & PropsFromRedux
 
 const InventoryRecord = (props: InventoryRecordPropsType) => {
     const [showModifyWIndow, setShowModifyWindow] = useState(false);

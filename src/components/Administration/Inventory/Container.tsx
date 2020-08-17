@@ -3,12 +3,12 @@ import { Navbar } from 'react-bootstrap';
 import InventoryTable from './Table';
 import AddWindow from './AddWindow';
 import { fetchItems } from '../../../actions/inventoryActions';
-import { RootStateType } from '../../../reducers/rootReducer'
+import { RootState } from '../../../reducers/rootReducer'
 import { connect, ConnectedProps } from 'react-redux';
-import { ItemType } from "../../../utils/appTypes";
+import { Item } from "../../../utils/appTypes";
 import { Dispatch, AnyAction, bindActionCreators } from "redux";
 
-const mapStateToProps = (state: RootStateType) => (
+const mapStateToProps = (state: RootState) => (
   {
     items: state.inventoryState.items
   }
@@ -26,7 +26,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps)
 type PropsFromRedux = ConnectedProps<typeof connector> // inferred type
 
 type InventoryContainerState = {
-  items: ItemType[],
+  items: Item[],
   showAddWindow: boolean
 }
 

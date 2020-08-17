@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
-import { ItemOrderType } from '../../utils/appTypes'
-import { RootStateType } from '../../reducers/rootReducer'
+import { ItemOrder } from '../../utils/appTypes'
+import { RootState } from '../../reducers/rootReducer'
 import { removeFromMyCart, incrementAmountInMyCart, decrementAmountInMyCart } from '../../actions/cartActions'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 
-const mapStateToProps = (state: RootStateType) => (
+const mapStateToProps = (state: RootState) => (
     {
         items: state.cartState.items
     }
@@ -40,7 +40,7 @@ class ShoppingCartOrderList extends Component<PropsFromRedux> {
                 </thead>
                 <tbody>
                     {
-                        this.props.items.map((item: ItemOrderType, index) =>
+                        this.props.items.map((item: ItemOrder, index) =>
                             <ShoppingCartItemOrder
                                 key={index}
                                 item={item}
@@ -57,7 +57,7 @@ class ShoppingCartOrderList extends Component<PropsFromRedux> {
                         <td></td>
                         <td className="text-danger font-weight-bolder lead">
                             &yen;&nbsp;{this.props.items
-                                .map((item: ItemOrderType) => item.totalPrice)
+                                .map((item: ItemOrder) => item.totalPrice)
                                 .reduce((accumulator: number, value: number) => (accumulator + value), 0)}
                         </td>
                         <td></td>
@@ -71,7 +71,7 @@ class ShoppingCartOrderList extends Component<PropsFromRedux> {
 export default connector(ShoppingCartOrderList)
 
 type ItemOrderPropsType = {
-    item: ItemOrderType,
+    item: ItemOrder,
     increment: VoidFunction,
     decrement: VoidFunction,
     delete: VoidFunction

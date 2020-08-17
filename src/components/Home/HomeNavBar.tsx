@@ -5,13 +5,13 @@ import chatIcon from '../../icons/chat.png'
 import LoginIcon from '../Users/Login/Icon'
 import AvatarIcon from '../Users/Avatar/Icon'
 import ShoppingCartIcon from '../ShoppingCart/Icon'
-import { RootStateType } from '../../reducers/rootReducer'
+import { RootState } from '../../reducers/rootReducer'
 import { connect, ConnectedProps, useDispatch } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { fetchCartItems, clearCart } from '../../actions/cartActions'
 import { get, Response } from "superagent";
 
-const mapStateToProps = (state: RootStateType) => (
+const mapStateToProps = (state: RootState) => (
     {
         token: state.tokenState.token
     }

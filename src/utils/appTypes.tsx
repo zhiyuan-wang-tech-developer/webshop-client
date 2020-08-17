@@ -7,12 +7,12 @@ export interface FormProps {
     switchForm: VoidFunction
 }
 
-export type UserLoginType = {
+export type LoginUser = {
     email: string,
     password: string
 }
 
-export type UserRegisterType = {
+export type RegisterUser = {
     name: string,
     email: string,
     password: string,
@@ -22,7 +22,7 @@ export type UserRegisterType = {
     country: string
 }
 
-export type ItemType = {
+export type Item = {
     id: number;
     name: string;
     description: string;
@@ -32,7 +32,7 @@ export type ItemType = {
     quantityInStock: number
 }
 
-export type ItemOrderType = {
+export type ItemOrder = {
     id: number,
     name: string,
     unitPrice: number,
@@ -40,39 +40,39 @@ export type ItemOrderType = {
     totalPrice: number
 }
 
-export type CartStateType = {
-    items: ItemOrderType[]
+export type CartState = {
+    items: ItemOrder[]
 }
 
-export type CartActionType = {
+export type CartAction = {
     type: string,
-    payload: { item: ItemOrderType }
+    payload: { item: ItemOrder }
 }
 
-export type FeedbackStateType = {
+export type FeedbackState = {
     message: string | null,
     timestamp: string | null
 }
 
-export type FeedbackActionType = {
+export type FeedbackAction = {
     type: string,
     payload: { message: string | null }
 }
 
-export type InventoryStateType = {
-    items: ItemType[]
+export type InventoryState = {
+    items: Item[]
 }
 
-export type InventoryActionType = {
+export type InventoryAction = {
     type: string,
-    payload: { items: ItemType[] }
+    payload: { items: Item[] }
 }
 
-export type TokenStateType = {
+export type TokenState = {
     token: string | null
 }
 
-export type TokenActionType = {
+export type TokenAction = {
     type: string,
     payload: { token: string | null }
 }

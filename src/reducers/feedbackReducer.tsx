@@ -1,12 +1,12 @@
 import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
-import { FeedbackStateType, FeedbackActionType } from '../utils/appTypes'
+import { FeedbackState, FeedbackAction } from '../utils/appTypes'
 
-const initialState: FeedbackStateType = {
+const initialState: FeedbackState = {
     message: null,
     timestamp: null
 }
 
-const feedbackReducer = (state = initialState, action: FeedbackActionType): FeedbackStateType => {
+const feedbackReducer = (state = initialState, action: FeedbackAction): FeedbackState => {
     switch (action.type) {
         case UPDATE_FEEDBACK:
             return {

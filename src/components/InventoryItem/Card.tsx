@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
 import ProductCardDetail from './CardDetail'
-import { ItemType } from '../../utils/appTypes'
+import { Item } from '../../utils/appTypes'
 
 type PropsType = {
-    item: ItemType,
+    item: Item,
     addToMyCart: () => {}
 }
 

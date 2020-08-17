@@ -1,16 +1,16 @@
-import { FeedbackActionType } from "../utils/appTypes"
-import { Dispatch } from "react"
+import { Dispatch } from "redux"
+import { FeedbackAction } from "../utils/appTypes"
 import { UPDATE_FEEDBACK, CLEAR_FEEDBACK } from '../constants/actionTypes'
 
 // Redux action creator
-export const updateFeedback = (feedbackMessage: string): FeedbackActionType => ({
+export const updateFeedback = (feedbackMessage: string): FeedbackAction => ({
     type: UPDATE_FEEDBACK,
     payload: {
         message: feedbackMessage
     }
 })
 
-export const clearFeedback = (): FeedbackActionType => ({
+export const clearFeedback = (): FeedbackAction => ({
     type: CLEAR_FEEDBACK,
     payload: {
         message: null
@@ -19,7 +19,7 @@ export const clearFeedback = (): FeedbackActionType => ({
 
 // Thunk action function
 export function clearFeedbackMessage() {
-    return (dispatch: Dispatch<FeedbackActionType>) => {
+    return (dispatch: Dispatch<FeedbackAction>) => {
         dispatch(clearFeedback())
     }
 }

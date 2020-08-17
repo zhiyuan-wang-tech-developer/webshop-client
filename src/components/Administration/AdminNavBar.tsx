@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Container, Col, Row, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 export default function AdminNavBar() {
     return (
@@ -12,12 +13,18 @@ export default function AdminNavBar() {
                         </Navbar.Brand>
                     </Col>
                     <Col sm={{ span: 0, offset: 1 }}>
-                        <DropdownButton id="dropdown-item-button" variant="info" title="Configuration">
-                            <Dropdown.Item as="button" active>admin-users</Dropdown.Item>
+                        <DropdownButton id="dropdown-item-button" variant="success" title="Configuration">
+                            <Dropdown.Item as="a">
+                                <Link to="/admin/admin-users">admin-users</Link>
+                            </Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item as="button">groups</Dropdown.Item>
+                            <Dropdown.Item as="a">
+                                <Link to="/admin/groups">groups</Link>
+                            </Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item as="button">authorities</Dropdown.Item>
+                            <Dropdown.Item as="a">
+                                <Link to="/admin/authorities">authorities</Link>
+                            </Dropdown.Item>
                         </DropdownButton>
                     </Col>
                     <Col sm={{ span: 0, offset: 8 }}>

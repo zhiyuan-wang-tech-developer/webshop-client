@@ -1,11 +1,11 @@
 import { ADD_NEW_ITEM, UPDATE_ITEMS } from "../constants/actionTypes";
-import { ItemType, InventoryStateType, InventoryActionType } from "../utils/appTypes";
+import { Item, InventoryState, InventoryAction } from "../utils/appTypes";
 
-const initialState: InventoryStateType = {
-    items: new Array<ItemType>(0)
+const initialState: InventoryState = {
+    items: new Array<Item>(0)
 }
 
-const itemsReducer = (state = initialState, action: InventoryActionType): InventoryStateType => {
+const itemsReducer = (state = initialState, action: InventoryAction): InventoryState => {
     switch (action.type) {
         case UPDATE_ITEMS:
             return {

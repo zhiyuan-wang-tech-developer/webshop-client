@@ -4,7 +4,7 @@ import { FormProps } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { get, Response } from "superagent"
 import { useFormik } from 'formik'
-import { UserRegisterType } from '../../../utils/appTypes'
+import { RegisterUser } from '../../../utils/appTypes'
 import { Register } from '../../../actions/loginActions'
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
@@ -20,7 +20,7 @@ const connector = connect(null, mapDispatchToProps)
 
 type PropsTypeFromRedux = ConnectedProps<typeof connector>
 
-const initialValues: UserRegisterType = {
+const initialValues: RegisterUser = {
     name: '',
     email: '',
     password: '',
@@ -45,7 +45,7 @@ const validationSchema = Yup.object(
 // const cityOptions: Array<string> = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Xiamen", "Changsha", "Wuhan", "Chengdu", "Chongqin", "Xi'an"]
 
 function RegisterForm(props: FormProps & PropsTypeFromRedux) {
-    const handleRegister = (values: UserRegisterType) => {
+    const handleRegister = (values: RegisterUser) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.Register(values)
             console.log("Submit register form!")
@@ -60,7 +60,7 @@ function RegisterForm(props: FormProps & PropsTypeFromRedux) {
             .then((response: Response) => setCityOptions(response.body.cities));
     }, [])
 
-    const formik = useFormik<UserRegisterType>(
+    const formik = useFormik<RegisterUser>(
         {
             initialValues,
             validationSchema,
