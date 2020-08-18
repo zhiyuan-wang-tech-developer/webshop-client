@@ -56,7 +56,7 @@ class InventoryContainer extends Component<PropsFromRedux, InventoryContainerSta
         <InventoryTable items={this.props.items} />
         <AddWindow show={this.state.showAddWindow} onHide={this.closeAddWindow} />
         <Navbar bg="info" variant="dark" fixed="bottom">
-          <Navbar.Brand href="/admin" className="col-sm-6">
+          <Navbar.Brand className="col-sm-6">
             <span className="fa fa-refresh fa-lg d-inline-block align-middle" onClick={this.refreshInventory}>&nbsp;Refresh</span>
           </Navbar.Brand>
           <Navbar.Brand className="col-sm-6">

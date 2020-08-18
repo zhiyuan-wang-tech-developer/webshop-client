@@ -1,13 +1,12 @@
 import React from 'react'
 import HomeNavBar from './HomeNavBar';
-import ProductCardsContainer from '../InventoryItem/CardsContainer';
-// import ItemCardContainer from '../Items/CardContainer';
+import ProductCards from '../InventoryItem/CardsConnector';
 
 export default function HomePage() {
     return (
         <React.Fragment>
             <HomeNavBar />
-            <ProductCardsContainer />
+            <ProductCards />
         </React.Fragment>
     )
 }

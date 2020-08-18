@@ -11,9 +11,7 @@ import {
     INCREMENT_AMOUNT,
     DECREMENT_AMOUNT
 } from '../constants/actionTypes'
-import Config from '../configuration'
-
-const baseURL = Config.URL.LocalHostURL
+import { urlCart, urlCartItem } from '../constants/config'
 
 // Action Creators
 function addItemIntoCart(item: ItemOrder): CartAction {
@@ -71,7 +69,7 @@ export function fetchCartItems() {
         const { id }: any = decode(tokenState.token)
 
         request
-            .get(`${baseURL}/cart`)
+            .get(urlCart)
             .set("Authorization", `Bearer ${tokenState.token}`)
             .send()
             .then((response: Response) => {
@@ -124,7 +122,7 @@ export function addToMyCart(itemId: number) {
         const { id }: any = decode(tokenState.token)
 
         request
-            .post(`${baseURL}/cart/item`)
+            .post(urlCartItem)
             .set("Authorization", `Bearer ${tokenState.token}`)     // set the request header 'Authorization'
             .send({ itemId })
             .then((response: Response) => {
@@ -160,7 +158,7 @@ export function removeFromMyCart(itemId: number) {
         const { id }: any = decode(tokenState.token)
 
         request
-            .delete(`${baseURL}/cart/item`)
+            .delete(urlCartItem)
             .set("Authorization", `Bearer ${tokenState.token}`)     // set the request header 'Authorization'
             .send({ itemId })
             .then((response: Response) => {
@@ -190,7 +188,7 @@ export function clearMyCart() {
         const { id }: any = decode(tokenState.token)
 
         request
-            .delete(`${baseURL}/cart`)
+            .delete(urlCart)
             .set("Authorization", `Bearer ${tokenState.token}`)     // set the request header 'Authorization'
             .send()
             .then((response: Response) => {
@@ -220,7 +218,7 @@ export function incrementAmountInMyCart(item: ItemOrder) {
         const { id }: any = decode(tokenState.token)
 
         request
-            .put(`${baseURL}/cart/item`)
+            .put(urlCartItem)
             .set("Authorization", `Bearer ${tokenState.token}`)     // set the request header 'Authorization'
             .send({
                 itemId: item.id,
@@ -253,7 +251,7 @@ export function decrementAmountInMyCart(item: ItemOrder) {
         const { id }: any = decode(tokenState.token)
 
         request
-            .put(`${baseURL}/cart/item`)
+            .put(urlCartItem)
             .set("Authorization", `Bearer ${tokenState.token}`)     // set the request header 'Authorization'
             .send({
                 itemId: item.id,

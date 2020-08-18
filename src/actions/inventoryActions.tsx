@@ -1,12 +1,10 @@
 import request, { Response } from 'superagent'
 import { Dispatch } from 'redux'
-import Config from '../configuration'
+import { urlItems } from '../constants/config'
 import { RootState } from "../reducer/rootReducer"
 import { updateFeedback } from './feedbackActions'
 import { Item, FeedbackAction, InventoryAction } from '../utils/appTypes'
 import { ADD_NEW_ITEM, UPDATE_ITEMS } from '../constants/actionTypes'
-
-const baseURL = Config.URL.LocalHostURL
 
 // action creators
 function addNewItem(item: Item): InventoryAction {
@@ -27,7 +25,7 @@ function updateItems(items: Item[]): InventoryAction {
 export function fetchItems() {
     return (dispatch: Dispatch<InventoryAction | FeedbackAction>) => {
         request
-            .get(`${baseURL}/items`)
+            .get(urlItems)
             .then((response: Response) => {
                 // console.log(`fetch: ${JSON.stringify(response.body)}`)
                 if (!response.body.items) {
@@ -45,7 +43,7 @@ export function fetchItems() {
 export function createItem(itemToCreate: Item) {
     return (dispatch: Dispatch<InventoryAction | FeedbackAction>) => {
         request
-            .post(`${baseURL}/items`)
+            .post(urlItems)
             .set('content-type', 'application/json')
             .send(itemToCreate)
             .then((response: Response) => {
@@ -65,7 +63,7 @@ export function updateItem(itemToUpdate: Item) {
     return (dispatch: Dispatch<InventoryAction | FeedbackAction>, getState: () => RootState) => {
         // console.log(`Updating item ${itemToUpdate.id}`)
         request
-            .put(`${baseURL}/items/${itemToUpdate.id}`)
+            .put(urlItems + `/${itemToUpdate.id}`)
             .set('content-type', 'application/json')
             .send(itemToUpdate)
             .then((response: Response) => {
@@ -92,7 +90,7 @@ export function deleteItem(itemId: number) {
     return (dispatch: Dispatch<InventoryAction | FeedbackAction>, getState: () => RootState) => {
         // console.log(`Deleting item ${itemId}`)
         request
-            .delete(`${baseURL}/items/${itemId}`)
+            .delete(urlItems + `/${itemId}`)
             .then((response: Response) => {
                 if (!response.body.itemIsDeleted) {
                     throw new Error("Can not delete this item!");

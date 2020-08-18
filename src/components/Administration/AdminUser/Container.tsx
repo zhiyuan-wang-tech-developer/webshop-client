@@ -3,10 +3,8 @@ import { Response, get, post, put, del } from 'superagent'
 import { Navbar } from 'react-bootstrap'
 import AdminUserTable from './Table'
 import CreateWindow from './CreateWindow'
-import Config from '../../../configuration'
+import { urlAdminUsers } from '../../../constants/config'
 import { AdminUser } from "../../../utils/appTypes"
-
-const baseURL = Config.URL.LocalHostURL
 
 type AdminUserContainerState = {
   adminUsers: AdminUser[],
@@ -23,7 +21,7 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
   closeAddWindow = () => { this.setState({ showAddWindow: false }) };
 
   fetchAdminUsers = () => {
-    get(`${baseURL}/admin/users`)
+    get(urlAdminUsers)
       .send()
       .then((response: Response) => {
         const { adminUsers } = response.body
@@ -36,7 +34,7 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
   }
 
   createAdminUser = (adminUser: AdminUser) => {
-    post(`${baseURL}/admin/users`)
+    post(urlAdminUsers)
       .send(adminUser)
       .then((response: Response) => {
         const { createdAdminUser } = response.body
@@ -51,7 +49,7 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
   }
 
   updateAdminUser = (adminUser: AdminUser) => {
-    put(`${baseURL}/admin/users/${adminUser.id}`)
+    put(urlAdminUsers + `/${adminUser.id}`)
       .send(adminUser)
       .then((response: Response) => {
         const { updatedAdminUser } = response.body
@@ -70,7 +68,7 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
   }
 
   deleteAdminUser = (adminUserId: number) => {
-    del(`${baseURL}/admin/users/${adminUserId}`)
+    del(urlAdminUsers + `/${adminUserId}`)
       .send()
       .then((response: Response) => {
         const { adminUserIsDeleted } = response.body
@@ -101,7 +99,7 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
           create={this.createAdminUser}
         />
         <Navbar bg="info" variant="dark" fixed="bottom">
-          <Navbar.Brand href="/admin" className="col-sm-6">
+          <Navbar.Brand className="col-sm-6">
             <span className="fa fa-refresh fa-lg d-inline-block align-middle" onClick={this.fetchAdminUsers}>&nbsp;Refresh</span>
           </Navbar.Brand>
           <Navbar.Brand className="col-sm-6">

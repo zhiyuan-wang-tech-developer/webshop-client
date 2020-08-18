@@ -1,11 +1,9 @@
 import { Dispatch } from 'redux'
 import request, { Response } from 'superagent'
-import Config from '../configuration'
+import { urlUsers, urlLogin } from '../constants/config'
 import { updateFeedback } from './feedbackActions'
 import { LoginUser, RegisterUser, FeedbackAction, TokenAction } from '../utils/appTypes'
 import { STORE_JSON_WEB_TOKEN, CLEAR_JSON_WEB_TOKEN } from '../constants/actionTypes'
-
-const baseURL = Config.URL.LocalHostURL
 
 // action creator
 function storeToken(token: string): TokenAction {
@@ -26,7 +24,7 @@ function clearToken(): TokenAction {
 export function Register(user: RegisterUser) {
     return (dispatch: Dispatch<FeedbackAction>) => {
         request
-            .post(`${baseURL}/users`)
+            .post(urlUsers)
             .set('content-type', 'application/json')
             .send(user)
             .then((response: Response) => {
@@ -55,7 +53,7 @@ export function Register(user: RegisterUser) {
 export function Login(user: LoginUser) {
     return (dispatch: Dispatch<TokenAction | FeedbackAction>) => {
         request
-            .post(`${baseURL}/users/login`)
+            .post(urlLogin)
             .send(user)
             .then((response: Response) => {
                 if (!response.body.token) {

@@ -5,7 +5,7 @@ import placeholderImage from '../../images/ItemCardPlaceholderImage.png'
 
 type PropsType = {
     item: Item,
-    addToMyCard: () => {}
+    addToMyCard: VoidFunction
 } & ModalWindowProps
 
 export default function ProductCardDetail(props: PropsType) {

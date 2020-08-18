@@ -1,28 +1,20 @@
-import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { RootState } from '../../reducer/rootReducer'
-import { fetchItems } from '../../actions/inventoryActions'
-import { addToMyCart } from '../../actions/cartActions'
-import ProductCards from './Cards'
+import React, { Component } from 'react'
+import { Container, CardColumns } from 'react-bootstrap'
+import { ProductCardsPropsFromRedux } from './CardsConnector'
+import ProductCard from './Card'
 
-const mapStateToProps = (state: RootState) => (
-    {
-        items: state.inventoryState.items
+export default class ProductCardsContainer extends Component<ProductCardsPropsFromRedux> {
+    componentDidMount() {
+        this.props.onFetchItems()
     }
-)
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
-    {
-        onFetchItems: () => fetchItems(),
-        onAddToMyCart: (itemId: number) => addToMyCart(itemId)
-    },
-    dispatch
-)
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-export type ProductCardsPropsFromRedux = ConnectedProps<typeof connector> // inferred type
-
-const ProductCardsContainer = connector(ProductCards)
-
-export default ProductCardsContainer
+    render() {
+        return (
+            <Container fluid={true} style={{ paddingTop: 130 }}>
+                <CardColumns>
+                    {this.props.items.map((item, index) => (<ProductCard key={index} item={item} addToMyCart={() => this.props.onAddToMyCart(item.id)} />))}
+                </CardColumns>
+            </Container>
+        )
+    }
+}

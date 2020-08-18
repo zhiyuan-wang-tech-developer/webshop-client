@@ -6,7 +6,7 @@ import { Item } from '../../utils/appTypes'
 
 type PropsType = {
     item: Item,
-    addToMyCart: () => {}
+    addToMyCart: VoidFunction
 }
 
 export default function ProductCard(props: PropsType) {

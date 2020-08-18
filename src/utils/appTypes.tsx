@@ -78,7 +78,7 @@ export type TokenAction = {
 }
 
 export type AdminUserGroup = {
-    id: number,
+    id?: number,
     name: string,
     description: string
 }
@@ -89,4 +89,12 @@ export type AdminUser = {
     email: string,
     password?: string,
     adminUserGroups: AdminUserGroup[]
+}
+
+export enum AuthorityAction {
+    ALL = "all",
+    GET = "get",
+    CREATE = "create",
+    EDIT = "edit",
+    DELETE = "delete",
 }

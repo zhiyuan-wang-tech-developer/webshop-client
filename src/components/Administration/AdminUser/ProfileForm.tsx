@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Form, Col, Button } from 'react-bootstrap'
 import { Response, get } from 'superagent'
 import * as Yup from 'yup'
-import Config from '../../../configuration'
+import { urlAdminGroups } from '../../../constants/config'
 import { AdminUser, AdminUserGroup } from '../../../utils/appTypes'
-
-const baseURL = Config.URL.LocalHostURL
 
 export const initialValues: AdminUser = {
     name: '',
@@ -47,7 +45,7 @@ export default function ProfileForm(props: { formik: any }) {
     const [groupToRemove, setGroupToRemove] = useState<AdminUserGroup | null>(null)
 
     useEffect(() => {
-        get(`${baseURL}/admin/groups`)
+        get(urlAdminGroups)
             .send()
             .then((response: Response) => {
                 const { groups } = response.body
@@ -72,7 +70,7 @@ export default function ProfileForm(props: { formik: any }) {
      */
     const selectGroup = (groups: AdminUserGroup[], setGroup: Function) => (event: React.MouseEvent<HTMLSelectElement>) => {
         const { value } = event.target as HTMLOptionElement
-        const group = groups.find(group => group.id.toString() === value)
+        const group = groups.find(group => group.id && group.id.toString() === value)
         setGroup(group ? group : null)
     }
 
@@ -99,7 +97,7 @@ export default function ProfileForm(props: { formik: any }) {
     const addUserToGroup = () => {
         if (groupToAssign && !assignedGroups.find(group => group.id === groupToAssign.id)) {
             setAvailableGroups(availableGroups.filter(group => group.id !== groupToAssign.id))
-            const updatedAssignedGroups = [...assignedGroups, groupToAssign].sort((groupA, groupB) => groupA.id - groupB.id)
+            const updatedAssignedGroups = [...assignedGroups, groupToAssign].sort((groupA, groupB) => groupA.id && groupB.id ? groupA.id - groupB.id : 0)
             setAssignedGroups(updatedAssignedGroups)
             values.adminUserGroups = updatedAssignedGroups
             setGroupToAssign(null)
@@ -108,7 +106,7 @@ export default function ProfileForm(props: { formik: any }) {
 
     const removeUserFromGroup = () => {
         if (groupToRemove && assignedGroups.find(group => group.id === groupToRemove.id)) {
-            setAvailableGroups([...availableGroups, groupToRemove].sort((groupA, groupB) => groupA.id - groupB.id))
+            setAvailableGroups([...availableGroups, groupToRemove].sort((groupA, groupB) => groupA.id && groupB.id ? groupA.id - groupB.id : 0))
             const updatedAssignedGroups = assignedGroups.filter(group => group.id !== groupToRemove.id)
             setAssignedGroups(updatedAssignedGroups)
             values.adminUserGroups = updatedAssignedGroups
