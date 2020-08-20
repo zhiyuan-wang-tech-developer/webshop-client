@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import EditWindow from './EditWIndow'
-import { AdminUser, AdminUserGroup } from '../../../utils/appTypes'
+import { AdminUser, Group } from '../../../utils/appTypes'
 
 type AdminUserRecordProps = {
     adminUser: AdminUser
@@ -25,7 +25,7 @@ const AdminUserRecord = (props: AdminUserRecordProps) => {
                 <td>{props.adminUser.id}</td>
                 <td>{props.adminUser.name}</td>
                 <td>{props.adminUser.email}</td>
-                <td>{props.adminUser.adminUserGroups.map((group: AdminUserGroup) => group.name).join(", ")}</td>
+                <td>{props.adminUser.adminUserGroups.map((group: Group) => group.name).join(", ")}</td>
                 <td>
                     <Button variant="outline-primary" onClick={openEditWindow}>
                         <span className="fa fa-edit fa-lg"></span>

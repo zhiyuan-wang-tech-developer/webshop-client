@@ -1,9 +1,9 @@
 import React from 'react'
 import { Form, Col } from 'react-bootstrap'
 import * as Yup from 'yup'
-import { AdminUserGroup } from '../../../utils/appTypes'
+import { Group } from '../../../utils/appTypes'
 
-export const initialValues: AdminUserGroup = {
+export const initialValues: Group = {
     name: '',
     description: ''
 }

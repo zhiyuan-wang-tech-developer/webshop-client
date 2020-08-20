@@ -1,16 +1,16 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { useFormik } from 'formik'
-import { ModalWindowProps, AdminUserGroup } from "../../../utils/appTypes"
+import { ModalWindowProps, Group } from "../../../utils/appTypes"
 import ProfileForm, { initialValues, validationSchema } from './ProfileForm'
 
 type OperateWindowProps = ModalWindowProps & {
-    group?: AdminUserGroup,
-    operate: (group: AdminUserGroup) => void
+    group?: Group,
+    operate: (group: Group) => void
 }
 
 function OperateWindow(props: OperateWindowProps) {
-    const handleOperateEvent = (values: AdminUserGroup) => {
+    const handleOperateEvent = (values: Group) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.operate(values)
             props.onHide()

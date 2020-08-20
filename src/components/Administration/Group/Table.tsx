@@ -1,11 +1,11 @@
 import React from 'react'
 import { Table, Container } from 'react-bootstrap'
 import GroupRecord from './Record'
-import { AdminUserGroup } from '../../../utils/appTypes'
+import { Group } from '../../../utils/appTypes'
 
 type GroupTableProps = {
-    groups: AdminUserGroup[],
-    update: (group: AdminUserGroup) => void
+    groups: Group[],
+    update: (group: Group) => void
     delete: (groupId: number) => void
 }
 

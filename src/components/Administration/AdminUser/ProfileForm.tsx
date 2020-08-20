@@ -3,7 +3,7 @@ import { Form, Col, Button } from 'react-bootstrap'
 import { Response, get } from 'superagent'
 import * as Yup from 'yup'
 import { urlAdminGroups } from '../../../constants/config'
-import { AdminUser, AdminUserGroup } from '../../../utils/appTypes'
+import { AdminUser, Group } from '../../../utils/appTypes'
 
 export const initialValues: AdminUser = {
     name: '',
@@ -28,7 +28,7 @@ export const validationSchema = Yup.object(
             .required('Password is required!'),
         adminUserGroups: Yup.array()
             .of(Yup.object()
-                .shape<AdminUserGroup>({
+                .shape<Group>({
                     id: Yup.number().required(),
                     name: Yup.string().required(),
                     description: Yup.string().required()
@@ -39,10 +39,10 @@ export const validationSchema = Yup.object(
 export default function ProfileForm(props: { formik: any }) {
     const { handleSubmit, handleChange, handleBlur, values, touched, errors } = props.formik
 
-    const [availableGroups, setAvailableGroups] = useState<AdminUserGroup[]>([])
-    const [assignedGroups, setAssignedGroups] = useState<AdminUserGroup[]>(values.adminUserGroups)
-    const [groupToAssign, setGroupToAssign] = useState<AdminUserGroup | null>(null)
-    const [groupToRemove, setGroupToRemove] = useState<AdminUserGroup | null>(null)
+    const [availableGroups, setAvailableGroups] = useState<Group[]>([])
+    const [assignedGroups, setAssignedGroups] = useState<Group[]>(values.adminUserGroups)
+    const [groupToAssign, setGroupToAssign] = useState<Group | null>(null)
+    const [groupToRemove, setGroupToRemove] = useState<Group | null>(null)
 
     useEffect(() => {
         get(urlAdminGroups)
@@ -52,13 +52,13 @@ export default function ProfileForm(props: { formik: any }) {
                 if (!groups) {
                     throw new Error("Can not fetch groups!");
                 }
-                const availableGroups: AdminUserGroup[] = groups.filter((group: any) => {
-                    return !assignedGroups.find((assignedGroup: AdminUserGroup) => assignedGroup.id === group.id);
+                const availableGroups: Group[] = groups.filter((group: any) => {
+                    return !assignedGroups.find((assignedGroup: Group) => assignedGroup.id === group.id);
                 })
                 setAvailableGroups(availableGroups)
             })
             .catch(console.warn)
-    }, [])
+    })
 
     /**
      * This method is to select a group from the given groups (either availableGroups or assignedGroups). 
@@ -68,7 +68,7 @@ export default function ProfileForm(props: { formik: any }) {
      * selectAvailableGroup === selectGroup(availableGroups, setGroupToAssign)
      * selectAssignedGroup  === selectGroup(assignedGroups, setGroupToRemove)
      */
-    const selectGroup = (groups: AdminUserGroup[], setGroup: Function) => (event: React.MouseEvent<HTMLSelectElement>) => {
+    const selectGroup = (groups: Group[], setGroup: Function) => (event: React.MouseEvent<HTMLSelectElement>) => {
         const { value } = event.target as HTMLOptionElement
         const group = groups.find(group => group.id && group.id.toString() === value)
         setGroup(group ? group : null)
@@ -199,7 +199,7 @@ export default function ProfileForm(props: { formik: any }) {
                         isInvalid={!!errors.adminUserGroups}
                     >
                         <option selected>Choose group to assign</option>
-                        {availableGroups.map((group: AdminUserGroup, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
+                        {availableGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
                     </Form.Control>
                     <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>
@@ -225,7 +225,7 @@ export default function ProfileForm(props: { formik: any }) {
                         isInvalid={!!errors.adminUserGroups}
                     >
                         <option selected>Choose group to remove</option>
-                        {assignedGroups.map((group: AdminUserGroup, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
+                        {assignedGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
                     </Form.Control>
                     <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>

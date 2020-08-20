@@ -4,6 +4,7 @@ import AdminNavBar from './AdminNavBar'
 import AdminUserContainer from "./AdminUser/Container"
 import GroupContainer from "./Group/Container"
 import InventoryContainer from './Inventory/Container'
+import AuthorityContainer from './Authority/Container'
 
 const AdminPageContent = () => {
     const { url } = useRouteMatch()
@@ -14,6 +15,9 @@ const AdminPageContent = () => {
             </Route>
             <Route exact path={`${url}/groups`}>
                 <GroupContainer />
+            </Route>
+            <Route exact path={`${url}/authorities`}>
+                <AuthorityContainer />
             </Route>
             <Route exact path={`${url}/inventory`}>
                 <InventoryContainer />

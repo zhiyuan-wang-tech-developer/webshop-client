@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import OperateWindow from './OperateWindow'
-import { AdminUserGroup } from '../../../utils/appTypes'
+import { Group } from '../../../utils/appTypes'
 
 type GroupRecordProps = {
-    group: AdminUserGroup
-    update: (group: AdminUserGroup) => void
+    group: Group
+    update: (group: Group) => void
     delete: (groupId: number) => void
 }
 

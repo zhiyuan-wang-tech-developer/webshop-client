@@ -77,7 +77,7 @@ export type TokenAction = {
     payload: { token: string | null }
 }
 
-export type AdminUserGroup = {
+export type Group = {
     id?: number,
     name: string,
     description: string
@@ -88,13 +88,26 @@ export type AdminUser = {
     name: string,
     email: string,
     password?: string,
-    adminUserGroups: AdminUserGroup[]
+    adminUserGroups: Group[]
+}
+
+export type Table = {
+    id?: number,
+    name: string,
+    description: string
+}
+
+export type Authority = {
+    id?: number,
+    groupId: number,
+    tableId: number,
+    action: AuthorityAction | string
 }
 
 export enum AuthorityAction {
     ALL = "all",
     GET = "get",
-    CREATE = "create",
+    ADD = "add",
     EDIT = "edit",
     DELETE = "delete",
 }

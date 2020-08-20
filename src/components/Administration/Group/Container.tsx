@@ -4,10 +4,10 @@ import { Navbar } from 'react-bootstrap'
 import GroupTable from './Table'
 import OperateWindow from './OperateWindow'
 import { urlAdminGroups } from '../../../constants/config'
-import { AdminUserGroup } from "../../../utils/appTypes"
+import { Group } from "../../../utils/appTypes"
 
 type GroupContainerState = {
-  groups: AdminUserGroup[],
+  groups: Group[],
   showCreateWindow: boolean
 }
 
@@ -33,7 +33,7 @@ class GroupContainer extends Component<any, GroupContainerState> {
       .catch(console.warn)
   }
 
-  createGroup = (group: AdminUserGroup) => {
+  createGroup = (group: Group) => {
     post(urlAdminGroups)
       .send(group)
       .then((response: Response) => {
@@ -48,7 +48,7 @@ class GroupContainer extends Component<any, GroupContainerState> {
       .catch(console.warn)
   }
 
-  updateGroup = (group: AdminUserGroup) => {
+  updateGroup = (group: Group) => {
     put(urlAdminGroups + `/${group.id}`)
       .send(group)
       .then((response: Response) => {
