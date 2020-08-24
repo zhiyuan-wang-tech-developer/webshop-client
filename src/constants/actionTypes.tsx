@@ -16,3 +16,7 @@ export const UPDATE_ITEMS = "UPDATE_ITEMS"
 // login action types
 export const STORE_JSON_WEB_TOKEN = "STORE_JSON_WEB_TOEKN"
 export const CLEAR_JSON_WEB_TOKEN = "CLEAR_JSON_WEB_TOEKN"
+
+// find action types
+export const UPDATE_FOUND_RESULTS = "UPDATE_FOUND_RESULTS"
+export const CLEAR_FOUND_RESULTS = "CLEAR_FOUND_RESULTS"

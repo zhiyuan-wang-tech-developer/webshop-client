@@ -35,7 +35,7 @@ export const validationSchema = Yup.object(
             .integer('Quantity In Stock must be an integer!')
             .min(0, 'Quantity In Stock must be greater than or equal to zero!')
     }
-);
+)
 
 export default function ItemProfileForm(props: { formik: any }) {
     const { handleSubmit, handleChange, handleBlur, values, touched, errors } = props.formik
@@ -47,7 +47,6 @@ export default function ItemProfileForm(props: { formik: any }) {
                     <Form.Control
                         name="id"
                         as="input"
-                        placeholder=""
                         size="sm"
                         disabled
                         value={values.id}
@@ -62,7 +61,6 @@ export default function ItemProfileForm(props: { formik: any }) {
                     <Form.Control
                         name="name"
                         as="input"
-                        placeholder="Item Name"
                         size="sm"
                         value={values.name}
                         onChange={handleChange}
@@ -79,7 +77,6 @@ export default function ItemProfileForm(props: { formik: any }) {
                 <Form.Control
                     name="description"
                     as="textarea"
-                    placeholder="Item Description"
                     size="sm"
                     rows={5}
                     value={values.description}
@@ -116,7 +113,6 @@ export default function ItemProfileForm(props: { formik: any }) {
                     <Form.Control
                         name="price"
                         as="input"
-                        placeholder="Item Price"
                         size="sm"
                         value={values.price}
                         onChange={handleChange}
@@ -154,7 +150,6 @@ export default function ItemProfileForm(props: { formik: any }) {
                     <Form.Control
                         name="quantityInStock"
                         as="input"
-                        placeholder="Item Quantity"
                         size="sm"
                         value={values.quantityInStock}
                         onChange={handleChange}

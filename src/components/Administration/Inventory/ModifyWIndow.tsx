@@ -20,7 +20,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 type ModifyWIndowPropsType = ModalWindowProps & { item: Item } & PropsFromRedux
 
-function ModifyWIndow(props: ModifyWIndowPropsType) {
+function ModifyWindow(props: ModifyWIndowPropsType) {
     const handleModify = (values: Item) => {
         if (window.confirm(JSON.stringify(values, null, 2))) {
             props.updateItem(values)
@@ -70,4 +70,4 @@ function ModifyWIndow(props: ModifyWIndowPropsType) {
     );
 }
 
-export default connector(ModifyWIndow)
+export default connector(ModifyWindow)

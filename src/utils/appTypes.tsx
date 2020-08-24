@@ -111,3 +111,15 @@ export enum AuthorityAction {
     EDIT = "edit",
     DELETE = "delete",
 }
+
+export type FoundResultState = {
+    items?: Item[],
+    itemsTotalCount?: number,
+    currentPage?: number,
+    totalPages?: number
+}
+
+export type FoundResultAction = {
+    type: string,
+    payload: { result: FoundResultState }
+}

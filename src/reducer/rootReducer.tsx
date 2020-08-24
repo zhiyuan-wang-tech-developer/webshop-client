@@ -3,13 +3,15 @@ import inventoryReducer from "../reducers/inventoryReducer";
 import cartReducer from "../reducers/cartReducer";
 import tokenReducer from "../reducers/loginReducer";
 import feedbackReducer from "../reducers/feedbackReducer";
+import findReducer from "../reducers/findReducer";
 
 const rootReducer = combineReducers(
     {
         inventoryState: inventoryReducer,
         cartState: cartReducer,
         tokenState: tokenReducer,
-        feedbackState: feedbackReducer
+        feedbackState: feedbackReducer,
+        foundResultState: findReducer
     }
 )
 

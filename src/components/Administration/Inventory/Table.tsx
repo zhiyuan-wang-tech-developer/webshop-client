@@ -27,7 +27,8 @@ export default function InventoryTable(props: { items: Item[] }) {
                         <th>Unit Price</th>
                         <th>Status</th>
                         <th>Quantity In Stock</th>
-                        <th>Modify</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>

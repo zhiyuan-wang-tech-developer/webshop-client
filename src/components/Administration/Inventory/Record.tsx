@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import ModifyWindow from './ModifyWIndow'
+import ModifyWindow from './ModifyWindow'
 import { Item } from '../../../utils/appTypes'
 import { deleteItem } from "../../../actions/inventoryActions"
 import { connect, ConnectedProps } from 'react-redux'
@@ -43,8 +43,8 @@ const InventoryRecord = (props: InventoryRecordPropsType) => {
                     <Button variant="outline-primary" onClick={openModifyWindow}>
                         <span className="fa fa-edit fa-lg"></span>
                     </Button>
-                    &nbsp;
-                    &nbsp;
+                </td>
+                <td>
                     <Button variant="outline-danger" onClick={handleDelete}>
                         <span className="fa fa-trash-o fa-lg"></span>
                     </Button>

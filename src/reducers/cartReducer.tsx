@@ -13,7 +13,6 @@ const initialState: CartState = {
 
 const cartReducer = (state = initialState, action: CartAction) => {
     switch (action.type) {
-
         case ADD_ITEM_INTO_CART:
             // console.log(JSON.stringify(action.payload))
             if (state.items.some((item: ItemOrder) => item.id === action.payload.item.id)) {

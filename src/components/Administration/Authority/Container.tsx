@@ -1,7 +1,8 @@
 import React, { Component, ChangeEvent } from 'react'
 import { Container, Form, Col } from 'react-bootstrap'
 import { Response, get } from 'superagent'
-import { urlAdminGroups } from '../../../constants/config'
+import { ApolloClient, InMemoryCache, gql, FetchResult } from '@apollo/client'
+import { urlAdminGroups, urlBaseGraphQL } from '../../../constants/config'
 import { Group, Table, Authority, AuthorityAction } from '../../../utils/appTypes'
 
 type AuthorityContainerState = {
@@ -10,6 +11,11 @@ type AuthorityContainerState = {
     authority: Authority,
     disableAll: boolean
 }
+
+const client = new ApolloClient({
+    uri: urlBaseGraphQL,
+    cache: new InMemoryCache()
+})
 
 class AuthorityContainer extends Component<any, AuthorityContainerState> {
     state: AuthorityContainerState = {
@@ -42,22 +48,78 @@ class AuthorityContainer extends Component<any, AuthorityContainerState> {
     }
 
     getTables = () => {
-        this.setState({
-            tables: [
-                {
-                    id: 1,
-                    name: "inventory",
-                    description: "inventory table"
+        client
+            .query({
+                query: gql(`query { tables { id name description } }`)
+            })
+            .then((result: FetchResult) => {
+                const { errors, data } = result
+                if (errors) {
+                    throw new Error(JSON.stringify(errors))
                 }
-            ]
-        })
+                if (data) {
+                    const { tables } = data
+                    this.setState({
+                        tables
+                    })
+                }
+            })
+            .catch(console.error)
     }
 
     operateAuthority = (operate: string, authority: Authority) => {
+        console.log(`To ${operate} authority:\n` + JSON.stringify(authority, null, 2))
         switch (operate) {
             case "create":
+                client
+                    .mutate({
+                        mutation: gql(`
+                            mutation authorityCreate($groupId: Int, $tableId: Int, $action: String) {
+                                authorityCreate(groupId: $groupId, tableId: $tableId, action: $action) {id, groupId, tableId, action }
+                            }`),
+                        variables: {
+                            groupId: authority.groupId,
+                            tableId: authority.tableId,
+                            action: authority.action
+                        }
+                    })
+                    .then((result: FetchResult) => {
+                        const { errors, data } = result
+                        if (errors) {
+                            throw new Error(JSON.stringify(errors));
+                        }
+                        if (data) {
+                            const { authorityCreate } = data
+                            console.log(JSON.stringify(authorityCreate))
+                        }
+                    })
+                    .catch(console.error)
+                break;
+
             case "delete":
-                console.log(`To ${operate} authority:\n` + JSON.stringify(authority, null, 2))
+                client
+                    .mutate({
+                        mutation: gql(`
+                            mutation authorityDelete($groupId: Int, $tableId: Int, $action: String) {
+                                authorityDelete(groupId: $groupId, tableId: $tableId, action: $action)
+                            }`),
+                        variables: {
+                            groupId: authority.groupId,
+                            tableId: authority.tableId,
+                            action: authority.action
+                        }
+                    })
+                    .then((result: FetchResult) => {
+                        const { errors, data } = result
+                        if (errors) {
+                            throw new Error(JSON.stringify(errors));
+                        }
+                        if (data) {
+                            const { authorityDelete } = data
+                            console.log(JSON.stringify(authorityDelete))
+                        }
+                    })
+                    .catch(console.error)
                 break;
 
             default:
@@ -79,6 +141,12 @@ class AuthorityContainer extends Component<any, AuthorityContainerState> {
                 <option key={index} value={table.id}>{table.name}</option>
             )
         })
+    }
+
+    updateCheckboxs = () => {
+        if (this.bothGroupAndTableSelected()) {
+
+        }
     }
 
     selectGroup = (event: ChangeEvent) => {
@@ -114,7 +182,7 @@ class AuthorityContainer extends Component<any, AuthorityContainerState> {
         return (this.state.authority.groupId >= 0 && this.state.authority.tableId >= 0)
     }
 
-    shouldCheckboxDisable() {
+    shouldCheckboxDisable = () => {
         return this.state.disableAll || !this.bothGroupAndTableSelected()
     }
 
