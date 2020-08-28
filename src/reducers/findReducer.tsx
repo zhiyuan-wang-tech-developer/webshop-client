@@ -11,12 +11,10 @@ const initialState: FoundResultState = {
 const findReducer = (state = initialState, action: FoundResultAction): FoundResultState => {
     switch (action.type) {
         case UPDATE_FOUND_RESULTS:
-            return action.payload.result
-            break;
+            return action.payload ? action.payload.result : state
 
         case CLEAR_FOUND_RESULTS:
             return initialState;
-            break;
 
         default:
             return state;

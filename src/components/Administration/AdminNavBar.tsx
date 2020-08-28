@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navbar, Container, Col, Row, Dropdown, DropdownButton } from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
+import { InventoryUpdateContext } from './AddInventory/UpdateContext'
 
 export default function AdminNavBar() {
     const { url } = useRouteMatch()
+    const { changeContext }: any = useContext(InventoryUpdateContext)
     return (
         <Container fluid>
             <Row>
@@ -15,7 +17,12 @@ export default function AdminNavBar() {
                     </Col>
                     <Col lg={{ span: 2, offset: 0 }}>
                         <DropdownButton id="dropdown-item-button" variant="success" title="Inventory">
-                            <Dropdown.Item href={`${url}/inventory/add`}>Add a new item</Dropdown.Item>
+                            <Dropdown.Item
+                                // href={`${url}/inventory/add`}
+                                onClick={() => {
+                                    changeContext('add', null, `${url}/inventory/add`)
+                                }}
+                            >Add a new item</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item href={`${url}/inventory/find`}>Find items</Dropdown.Item>
                         </DropdownButton>

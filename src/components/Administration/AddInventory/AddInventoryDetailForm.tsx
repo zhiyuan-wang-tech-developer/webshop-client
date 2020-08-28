@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Container, Form, Col, Row, Button } from 'react-bootstrap'
 import { useRouteMatch, useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Response, get, put } from 'superagent'
 import { urlItems } from '../../../constants/config'
+import { InventoryUpdateContext } from './UpdateContext'
+import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../../reducer/rootReducer'
+import { findResultsOnCurrentPage } from '../../../actions/findActions'
+import { debug } from 'console'
 
 const initialValues = {
     specification: '',
@@ -44,7 +49,13 @@ function AddInventoryDetailForm() {
     const { url, params } = useRouteMatch()
     const [itemDetailState, setItemDetailState] = useState(null)
     const { id }: any = params
-    const { push } = useHistory()
+
+    const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
+    // const { itemId: id } = updateContext
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+    const pageCurrent = useTypedSelector(state => state.foundResultState.currentPage)
+    const dispatch = useDispatch()
     const { submitForm, handleChange, handleBlur, setValues, values, touched, errors, isValid } = useFormik(
         {
             initialValues,
@@ -60,7 +71,18 @@ function AddInventoryDetailForm() {
                             if (!updatedItem) {
                                 throw new Error("Can not get the updated item!");
                             }
-                            // push(`${url}/../../find?id=${updatedItem.id}`)
+                            console.log('add detail 73')
+                            if (itemDetailState) {
+                                console.log('add detail 74')
+                                findResultsOnCurrentPage(id)(dispatch)
+                                console.log('pageCurrent before: ', pageCurrent)
+                                alert()
+                                changeContext('update', id, `${url}/../../find`)
+                            }
+                            else {
+                                console.log('add detail 78')
+                                changeContext('add', id, `${url}/../../find`)
+                            }
                         })
                         .catch(console.warn)
                 }
@@ -144,7 +166,7 @@ function AddInventoryDetailForm() {
                         type='submit'
                         style={{ width: 100 }}
                         disabled={!isValid}
-                        href={`${url}/../../find?id=${id}`}
+                        // href={`${url}/../../find?id=${id}`}
                         onClick={submitForm}
                     >{labels(itemDetailState).saveButton}</Button>
                 </Col>
@@ -152,7 +174,7 @@ function AddInventoryDetailForm() {
                     <Button
                         variant="outline-secondary"
                         style={{ width: 100 }}
-                        href={`${url}/../../../`}
+                        href={`${url}/../../find`}
                     >Cancel</Button>
                 </Col>
             </Row>

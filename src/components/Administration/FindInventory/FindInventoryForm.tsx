@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Accordion, Card, Form, Col, Row, Button, Jumbotron, Pagination } from 'react-bootstrap'
+import React, { useState, useEffect, useContext } from 'react'
+import { Container, Accordion, Card, Form, Col, Row, Button, Jumbotron } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux'
+import { useSelector, useDispatch, TypedUseSelectorHook, shallowEqual } from 'react-redux'
 import { useFormik } from 'formik'
 import { Response, get, put, del } from 'superagent'
 import FindResultsTable from './FindResultsTable'
 import { urlItems, urlItemsFind } from '../../../constants/config'
 import { Item } from '../../../utils/appTypes'
-import { findResults } from '../../../actions/findActions'
+import { findResults, findResultsOnCurrentPage } from '../../../actions/findActions'
 import { RootState } from '../../../reducer/rootReducer'
+import PaginationBar from './PaginationBar'
+import { Typography } from '@material-ui/core'
+import { InventoryUpdateContext } from '../AddInventory/UpdateContext'
 
 /**
  *  TODO:
@@ -27,12 +30,16 @@ const initialValues = {
 }
 
 function FindInventoryForm() {
-    const [itemsFound, setItemsFound] = useState<Item[]>([])
+    // const [itemsFound, setItemsFound] = useState<Item[]>([])
     const { search } = useLocation()
-    const foundItems = useSelector<RootState, Item[]>(state => {
-        return state.foundResultState.items as Item[]
-    }, shallowEqual)
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+    const itemsFound = useTypedSelector(state => state.foundResultState.items as Item[], shallowEqual)
+    const pageCurrent = useTypedSelector(state => state.foundResultState.currentPage)
     const dispatch = useDispatch()
+
+    // const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
+    // const { operation, itemId: id } = updateContext
 
     const { submitForm, handleChange, handleBlur, handleReset, values, touched, errors, isValid } = useFormik(
         {
@@ -41,28 +48,23 @@ function FindInventoryForm() {
                 const queryParams = Object.fromEntries(Object.entries(values).filter(entry => entry[1] !== ''))
                 if (window.confirm(JSON.stringify(queryParams, null, 2))) {
                     findResults(queryParams, 1)(dispatch)
-
-                    // get(`${urlItemsFind}`)
-                    //     .query(queryParams)
-                    //     .then((response: Response) => {
-                    //         if (!response.body.items) {
-                    //             throw new Error("Can not find items!");
-                    //         }
-                    //         setItemsFound([...response.body.items])
-                    //     })
-                    //     .catch(error => console.warn(error))
                 }
             }
         }
     )
 
     useEffect(() => {
+        // console.log("operation: ", operation)
+        console.log("search: ", search)
         if (search) {
             values.id = search.split("=")[1]
             submitForm()
         }
         else {
-            getItems()
+            console.log('pageCurrent after: ', pageCurrent)
+            // console.log(pageCurrent)/
+            // findResults({}, pageCurrent)(dispatch)
+            // findResultsOnCurrentPage(13)
         }
     }, [search])
 
@@ -72,7 +74,7 @@ function FindInventoryForm() {
                 if (!response.body.items) {
                     throw new Error("Can not get items!");
                 }
-                setItemsFound([...response.body.items])
+                // setItemsFound([...response.body.items])
             })
             .catch(error => console.warn(error))
     }
@@ -91,7 +93,7 @@ function FindInventoryForm() {
                     else
                         return updatedItem
                 })
-                setItemsFound(updatedItems)
+                // setItemsFound(updatedItems)
             })
             .catch(console.warn)
     }
@@ -104,7 +106,7 @@ function FindInventoryForm() {
                     throw new Error("Can not delete the item!");
                 }
                 const updatedItems = itemsFound.filter(item => item.id !== itemId)
-                setItemsFound(updatedItems)
+                // setItemsFound(updatedItems)
             })
             .catch(console.warn)
     }
@@ -114,14 +116,15 @@ function FindInventoryForm() {
             paddingTop: 80,
             paddingLeft: 50,
             paddingRight: 50
-        }} >
+        }}>
             <Accordion>
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle
                             as={Button}
                             variant="outline-info"
-                            style={{ width: 300 }} eventKey="find">
+                            style={{ width: 300 }}
+                            eventKey="find">
                             Filter items by
                         </Accordion.Toggle>
                     </Card.Header>
@@ -284,17 +287,17 @@ function FindInventoryForm() {
                                     <Button
                                         variant="outline-primary"
                                         type='submit'
-                                        style={{ width: 100 }}
+                                        style={{ width: 120 }}
                                         disabled={!isValid}
                                         onClick={submitForm}
-                                    >Find items</Button>
+                                    ><Typography>Find items</Typography></Button>
                                 </Col>
                                 <Col sm={6}>
                                     <Button
                                         variant="outline-secondary"
-                                        style={{ width: 100 }}
+                                        style={{ width: 120 }}
                                         onClick={handleReset}
-                                    >Clear filter</Button>
+                                    ><Typography>Clear filter</Typography></Button>
                                 </Col>
                             </Row>
                         </Card.Body>
@@ -302,23 +305,12 @@ function FindInventoryForm() {
                 </Card>
             </Accordion>
             <FindResultsTable
-                items={foundItems as Item[]}
+                items={itemsFound as Item[]}
                 update={updateItem}
                 delete={deleteItem}
             />
-            <Pagination>
-                <Pagination.First />
-                <Pagination.Prev />
-                <Pagination.Item active>{1}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{5}</Pagination.Item>
-                <Pagination.Item>{6}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{10}</Pagination.Item>
-                <Pagination.Next />
-                <Pagination.Last />
-            </Pagination>
-        </ Container >
+            <PaginationBar />
+        </Container>
     )
 }
 

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button } from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
 // import EditWindow from './EditWindow'
 import { Item } from '../../../utils/appTypes'
+import { InventoryUpdateContext } from '../AddInventory/UpdateContext'
 
 type FindResultRecordProps = {
     item: Item
@@ -15,6 +16,7 @@ const FindResultRecord = (props: FindResultRecordProps) => {
     const closeEditWindow = () => setShowEditWindow(false);
     // const openEditWindow = () => setShowEditWindow(true);
     const { url } = useRouteMatch()
+    const { changeContext }: any = useContext(InventoryUpdateContext)
 
     const handleDeleteEvent = () => {
         props.delete()
@@ -33,8 +35,11 @@ const FindResultRecord = (props: FindResultRecordProps) => {
                 <td>
                     <Button
                         variant="outline-primary"
-                        href={`${url}/../edit/${props.item.id}`}
-                    // onClick={openEditWindow}
+                        // href={`${url}/../edit/${props.item.id}`}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
+                            changeContext('update', props.item.id, `${url}/../edit/${props.item.id}`)
+                        }}
                     >
                         <span className="fa fa-edit fa-lg"></span>
                     </Button>

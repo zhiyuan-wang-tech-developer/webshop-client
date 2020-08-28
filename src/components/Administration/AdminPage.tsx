@@ -8,6 +8,7 @@ import AuthorityContainer from './Authority/Container'
 import AddInventoryForm from './AddInventory/AddInventoryForm'
 import AddInventoryDetailForm from './AddInventory/AddInventoryDetailForm'
 import FindInventoryForm from './FindInventory/FindInventoryForm'
+import { InventoryUpdateContextProvider } from './AddInventory/UpdateContext'
 
 const AdminPageContent = () => {
     const { url } = useRouteMatch()
@@ -20,18 +21,20 @@ const AdminPageContent = () => {
                     left: 300
                 }}>Welcome to visit the Administration Page!</h1>
             </Route>
-            <Route exact path={`${url}/inventory/add`}>
-                <AddInventoryForm />
-            </Route>
-            <Route strict exact path={`${url}/inventory/edit/:id`}>
-                <AddInventoryForm />
-            </Route>
-            <Route exact path={`${url}/inventory/detail/:id`}>
-                <AddInventoryDetailForm />
-            </Route>
-            <Route exact path={`${url}/inventory/find`}>
-                <FindInventoryForm />
-            </Route>
+            <InventoryUpdateContextProvider>
+                <Route exact path={`${url}/inventory/add`}>
+                    <AddInventoryForm />
+                </Route>
+                <Route strict exact path={`${url}/inventory/edit/:id`}>
+                    <AddInventoryForm />
+                </Route>
+                <Route exact path={`${url}/inventory/detail/:id`}>
+                    <AddInventoryDetailForm />
+                </Route>
+                <Route exact path={`${url}/inventory/find`}>
+                    <FindInventoryForm />
+                </Route>
+            </InventoryUpdateContextProvider>
             <Route exact path={`${url}/shoppingcart/find`}>
             </Route>
             <Route exact path={`${url}/admin-users`}>
@@ -54,7 +57,9 @@ export default class AdminPage extends Component {
     render() {
         return (
             <>
-                <AdminNavBar />
+                <InventoryUpdateContextProvider>
+                    <AdminNavBar />
+                </InventoryUpdateContextProvider>
                 <AdminPageContent />
             </>
         )

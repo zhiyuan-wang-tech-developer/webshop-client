@@ -17,5 +17,5 @@ export const urlAdminGroups = `${urlBase}/admin/groups`
 
 export const urlBaseGraphQL = "http://localhost:3002/graphql"
 
-export const RESULTS_PER_PAGE = 10
+export const RESULTS_PER_PAGE = 5
 export const START_OFFSET = 0

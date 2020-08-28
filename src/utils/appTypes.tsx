@@ -113,13 +113,13 @@ export enum AuthorityAction {
 }
 
 export type FoundResultState = {
-    items?: Item[],
-    itemsTotalCount?: number,
-    currentPage?: number,
-    totalPages?: number
+    items: Item[],
+    itemsTotalCount: number,
+    currentPage: number,
+    totalPages: number
 }
 
 export type FoundResultAction = {
     type: string,
-    payload: { result: FoundResultState }
+    payload?: { result: FoundResultState }
 }

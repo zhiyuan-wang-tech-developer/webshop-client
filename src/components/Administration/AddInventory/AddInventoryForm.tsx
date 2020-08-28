@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Container, Form, Col, Row, Button } from 'react-bootstrap'
-import { useRouteMatch, useHistory } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Response, get, post } from 'superagent'
 import { urlItems } from '../../../constants/config'
 import { Item } from '../../../utils/appTypes'
+import { InventoryUpdateContext } from './UpdateContext'
 
 const initialValues: Partial<Item> = {
     name: '',
@@ -43,7 +44,10 @@ const validationSchema = Yup.object(
 function AddInventoryForm() {
     const { url, params } = useRouteMatch()
     const { id }: any = params
-    const { push } = useHistory()
+
+    // const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
+    // const { itemId: id } = updateContext
+
     const { submitForm, handleChange, handleBlur, setValues, values, touched, errors, isValid } = useFormik(
         {
             initialValues,
@@ -58,12 +62,6 @@ function AddInventoryForm() {
                             if (!createdItem) {
                                 throw new Error("Can not get the created item!");
                             }
-                            // if (id)
-                            //     push(`${url}/../../detail/${createdItem.id}`)
-                            // else
-                            //     push(`${url}/../detail/${createdItem.id}`)
-
-
                         })
                         .catch(console.warn)
                 }
@@ -89,13 +87,12 @@ function AddInventoryForm() {
         return id ? (<h5>Edit an item with ID: {id}</h5>) : (<h5>Add a new item into inventory</h5>)
     }
 
-
     return (
         <Container fluid style={{
             paddingTop: 80,
             paddingLeft: 300,
             paddingRight: 300
-        }} >
+        }}>
             {formTitle()}
             <Form>
                 <Form.Group controlId="formItemName" as={Row}>
@@ -227,11 +224,11 @@ function AddInventoryForm() {
                     <Button
                         variant="outline-secondary"
                         style={{ width: 150 }}
-                        href={`${url}/../../`}
+                        href={id ? `${url}/../../find` : `${url}/../find`}
                     >Cancel</Button>
                 </Col>
             </Row>
-        </ Container >
+        </Container>
     )
 }
 
