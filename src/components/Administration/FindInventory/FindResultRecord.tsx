@@ -40,6 +40,7 @@ const FindResultRecord = (props: FindResultRecordProps) => {
                             e.preventDefault();
                             changeContext('update', props.item.id, `${url}/../edit/${props.item.id}`)
                         }}
+                        disabled={true}
                     >
                         <span className="fa fa-edit fa-lg"></span>
                     </Button>

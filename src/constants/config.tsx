@@ -14,6 +14,9 @@ export const urlCart = `${urlBase}/cart`
 export const urlCartItem = `${urlBase}/cart/item`
 export const urlAdminUsers = `${urlBase}/admin/users`
 export const urlAdminGroups = `${urlBase}/admin/groups`
+export const urlAuthorities = `${urlBase}/authorities`
+export const urlTables = `${urlBase}/authorities/tables`
+export const urlActions = (groupId: number, tableId: number) => `${urlBase}/authorities/group/${groupId}/table/${tableId}`
 
 export const urlBaseGraphQL = "http://localhost:3002/graphql"
 

@@ -40,7 +40,7 @@ function FindInventoryForm() {
 
     // const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
     // const { operation, itemId: id } = updateContext
-
+    const activeUser = {}
     const { submitForm, handleChange, handleBlur, handleReset, values, touched, errors, isValid } = useFormik(
         {
             initialValues,

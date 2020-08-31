@@ -16,7 +16,7 @@ function Main() {
               {/* The exact param disables the partial matching for a route and makes sure that 
               it only returns the route if the path is an EXACT match to the current url. */}
               <Route exact path="/">
-                <Redirect to="/home" />
+                <Redirect to="/admin" />
               </Route>
               <Route path="/home">
                 <HomePage />
