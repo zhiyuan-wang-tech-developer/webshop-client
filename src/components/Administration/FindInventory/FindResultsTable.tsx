@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table, Container } from 'react-bootstrap'
+import React, { Fragment } from 'react'
+import { Table } from 'react-bootstrap'
 import FindResultRecord from './FindResultRecord'
 import { Item } from '../../../utils/appTypes'
 
@@ -7,21 +7,22 @@ type FindResultsTableProps = {
     items: Item[],
     update: (item: Item) => void
     delete: (itemId: number) => void
+    sortButton: (sortColumn: string, buttonName: string) => JSX.Element
 }
 
 export default function FindResultsTable(props: FindResultsTableProps) {
     return (
-        <Container fluid style={{ paddingTop: 25 }}>
+        <Fragment>
             <Table striped bordered hover variant="light" responsive>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Price&nbsp;&nbsp;&yen;</th>
-                        <th>Status</th>
-                        <th>Quantity In Stock</th>
+                        <th>{props.sortButton('id', 'Id')}</th>
+                        <th>{props.sortButton('name', 'Name')}</th>
+                        <th>{props.sortButton('description', 'Description')}</th>
+                        <th>{props.sortButton('category', 'Category')}</th>
+                        <th>{props.sortButton('price', 'Price')}&nbsp;&nbsp;&yen;</th>
+                        <th>{props.sortButton('status', 'Status')}</th>
+                        <th>{props.sortButton('quantityInStock', 'Stock Quantity')}</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -39,7 +40,6 @@ export default function FindResultsTable(props: FindResultsTableProps) {
             {props.items.length > 0 ? null : <h4 className="align-middle">We can not find any result!</h4>}
             <br />
             <br />
-        </Container>
+        </Fragment>
     )
 }
-

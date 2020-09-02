@@ -2,9 +2,10 @@ import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { ModalWindowProps } from '../../utils/appTypes'
 import { clearMyCart } from "../../actions/cartActions";
-import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
 import ShoppingCartOrderList from './OrderList'
+
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
     {
         clearMyCart

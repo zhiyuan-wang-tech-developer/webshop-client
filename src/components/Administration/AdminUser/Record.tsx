@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import EditWindow from './EditWIndow'
 import { AdminUser, Group } from '../../../utils/appTypes'
+import { isSystemAdmin } from '../../../utils/helper'
 
 type AdminUserRecordProps = {
     adminUser: AdminUser
@@ -32,7 +33,11 @@ const AdminUserRecord = (props: AdminUserRecordProps) => {
                     </Button>
                     &nbsp;
                     &nbsp;
-                    <Button variant="outline-danger" onClick={handleDeleteEvent}>
+                    <Button
+                        variant={isSystemAdmin() ? "outline-danger" : "outline-secondary"}
+                        onClick={handleDeleteEvent}
+                        disabled={!isSystemAdmin()}
+                    >
                         <span className="fa fa-trash-o fa-lg"></span>
                     </Button>
                 </td>

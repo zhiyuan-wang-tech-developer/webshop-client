@@ -7,7 +7,7 @@ import { connect, ConnectedProps } from 'react-redux'
 
 const mapStateToProps = (state: RootState) => (
     {
-        items: state.cartState.items
+        items: state.cart.items
     }
 )
 

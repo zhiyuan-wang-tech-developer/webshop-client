@@ -4,12 +4,12 @@ import { ModalWindowProps } from '../../../utils/appTypes'
 import { RootState } from '../../../reducer/rootReducer'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { Logout } from '../../../actions/loginActions'
+import { Logout } from '../../../actions/loginUserActions'
 import { decode } from 'jsonwebtoken'
 
 const mapStateToProps = (state: RootState) => (
     {
-        token: state.tokenState.token
+        token: state.token.token
     }
 )
 

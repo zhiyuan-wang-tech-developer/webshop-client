@@ -1,23 +1,19 @@
 import { Response, get } from 'superagent'
-import { FoundResultAction, Item } from '../utils/appTypes'
+import { FoundResultAction, Item, SortOrder } from '../utils/appTypes'
 import { UPDATE_FOUND_RESULTS, CLEAR_FOUND_RESULTS } from '../constants/actionTypes'
 import { urlItemsFind, urlItems, RESULTS_PER_PAGE } from '../constants/config'
 import { Dispatch } from 'react'
 
 // action creator
-function updateResults(items: Item[], count: number, offset: number, limit: number): FoundResultAction {
-    console.log('updateResults offset: ', offset)
-    const currentPage = offset < limit ? 1 : Math.ceil(offset / limit)
-    const totalPages = count < limit ? 1 : Math.ceil(count / limit)
-    console.log('updateResults currentPage-j: ', currentPage)
+function updateResults(itemsTotal: number, pageItems: Item[], pageCurrent: number, pageTotal: number): FoundResultAction {
     return {
         type: UPDATE_FOUND_RESULTS,
         payload: {
             result: {
-                items: [...items],
-                itemsTotalCount: count,
-                currentPage,
-                totalPages
+                itemsTotal,
+                pageItems: [...pageItems],
+                pageCurrent,
+                pageTotal
             }
         }
     }
@@ -29,20 +25,19 @@ function clearResults(): FoundResultAction {
     }
 }
 
-export function findResults(queryParams: any = {}, page: number = 1) {
-    const offset = RESULTS_PER_PAGE * (page - 1)
+export function findResults(queryParams: any = {}, page: number = 1, sortColumn: string = 'id', sortOrder: SortOrder = SortOrder.ASCEND) {
     const limit = RESULTS_PER_PAGE
     return (dispatch: Dispatch<FoundResultAction>) => {
         get(`${urlItemsFind}`)
             .query(queryParams)
-            .query({ offset })
-            .query({ limit })
+            .query({ limit, page })
+            .query({ sortColumn, sortOrder })
             .then((response: Response) => {
-                const { items, count } = response.body
-                if (!items) {
+                const { itemsTotal, pageItems, pageCurrent, pageTotal } = response.body
+                if (!pageItems) {
                     throw new Error("Can not find items!");
                 }
-                dispatch(updateResults(items, count, offset, limit))
+                dispatch(updateResults(itemsTotal, pageItems, pageCurrent, pageTotal))
             })
             .catch(error => console.warn(error))
     }

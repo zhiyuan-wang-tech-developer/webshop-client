@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import ItemProfileForm, { validationSchema } from '../Inventory/ItemProfileForm';
 import { useFormik } from "formik";
+import ItemProfileForm, { validationSchema } from '../Inventory/ItemProfileForm';
 import { ModalWindowProps, Item } from "../../../utils/appTypes";
 
 type EditWindowProps = ModalWindowProps & {

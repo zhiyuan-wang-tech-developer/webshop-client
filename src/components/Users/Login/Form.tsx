@@ -3,7 +3,7 @@ import { Form, Button, Col, Row } from 'react-bootstrap'
 import { FormProps, LoginUser } from '../../../utils/appTypes'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { Login } from '../../../actions/loginActions'
+import { Login } from '../../../actions/loginUserActions'
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 

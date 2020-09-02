@@ -3,8 +3,9 @@ import { Response, get, post, put, del } from 'superagent'
 import { Navbar } from 'react-bootstrap'
 import AdminUserTable from './Table'
 import CreateWindow from './CreateWindow'
-import { urlAdminUsers } from '../../../constants/config'
+import { urlAdminUsers, urlAdminUser } from '../../../constants/config'
 import { AdminUser } from "../../../utils/appTypes"
+import { isSystemAdmin, getAdminUserIdFromCookies } from "../../../utils/helper"
 
 type AdminUserContainerState = {
   adminUsers: AdminUser[],
@@ -22,7 +23,6 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
 
   fetchAdminUsers = () => {
     get(urlAdminUsers)
-      .send()
       .then((response: Response) => {
         const { adminUsers } = response.body
         if (!adminUsers) {
@@ -31,6 +31,21 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
         this.setState({ adminUsers: [...adminUsers] })
       })
       .catch(console.warn)
+  }
+
+  fetchAdminUser = () => {
+    const userId = getAdminUserIdFromCookies()
+    if (userId) {
+      get(urlAdminUser(userId))
+        .then((response: Response) => {
+          const { adminUser } = response.body
+          if (!adminUser) {
+            throw new Error(`Can not fetch admin user with id ${userId}!`);
+          }
+          this.setState({ adminUsers: [adminUser] })
+        })
+        .catch(console.warn)
+    }
   }
 
   createAdminUser = (adminUser: AdminUser) => {
@@ -81,8 +96,16 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
       .catch(console.warn)
   }
 
+  loadAdminUserData = () => {
+    if (isSystemAdmin()) {
+      this.fetchAdminUsers()
+    } else {
+      this.fetchAdminUser()
+    }
+  }
+
   componentDidMount() {
-    this.fetchAdminUsers()
+    this.loadAdminUserData()
   }
 
   render() {
@@ -100,10 +123,10 @@ class AdminUserContainer extends Component<any, AdminUserContainerState> {
         />
         <Navbar bg="info" variant="dark" fixed="bottom">
           <Navbar.Brand className="col-sm-6">
-            <span className="fa fa-refresh fa-lg d-inline-block align-middle" onClick={this.fetchAdminUsers}>&nbsp;Refresh</span>
+            <span className="fa fa-refresh fa-lg d-inline-block align-middle" onClick={this.loadAdminUserData.bind(this)}>&nbsp;Refresh</span>
           </Navbar.Brand>
           <Navbar.Brand className="col-sm-6">
-            <span className="fa fa-pencil fa-lg d-inline-block align-middle" onClick={this.openAddWindow}>&nbsp;Create</span>
+            {isSystemAdmin() ? <span className="fa fa-pencil fa-lg d-inline-block align-middle" onClick={this.openAddWindow}>&nbsp;Create</span> : null}
           </Navbar.Brand>
         </Navbar>
       </div>

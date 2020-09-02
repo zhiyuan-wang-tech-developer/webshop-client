@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { Button } from 'react-bootstrap'
 import { useRouteMatch } from 'react-router-dom'
-// import EditWindow from './EditWindow'
-import { Item } from '../../../utils/appTypes'
-import { InventoryUpdateContext } from '../AddInventory/UpdateContext'
+import { Item, AuthorityAction } from '../../../utils/appTypes'
+import { TypedUseSelectorHook, useSelector, shallowEqual } from 'react-redux'
+import { RootState } from '../../../reducer/rootReducer'
+import { tableNameInventory } from '../../../constants/config'
 
 type FindResultRecordProps = {
     item: Item
@@ -12,11 +13,26 @@ type FindResultRecordProps = {
 }
 
 const FindResultRecord = (props: FindResultRecordProps) => {
-    const [showEditWIndow, setShowEditWindow] = useState(false);
-    const closeEditWindow = () => setShowEditWindow(false);
-    // const openEditWindow = () => setShowEditWindow(true);
     const { url } = useRouteMatch()
-    const { changeContext }: any = useContext(InventoryUpdateContext)
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+    const tableActions = useTypedSelector(state => state.tableActions, shallowEqual)
+
+    const editShouldEnable = () => {
+        const tableAction = tableActions.find(tableAction => tableAction.tableName === tableNameInventory)
+        if (!tableAction) {
+            return false
+        }
+        return tableAction.actions.includes(AuthorityAction.EDIT) || tableAction.actions.includes(AuthorityAction.ALL)
+    }
+
+    const deleteShouldEnable = () => {
+        const tableAction = tableActions.find(tableAction => tableAction.tableName === tableNameInventory)
+        if (!tableAction) {
+            return false
+        }
+        return tableAction.actions.includes(AuthorityAction.DELETE) || tableAction.actions.includes(AuthorityAction.ALL)
+    }
 
     const handleDeleteEvent = () => {
         props.delete()
@@ -34,29 +50,23 @@ const FindResultRecord = (props: FindResultRecordProps) => {
                 <td>{props.item.quantityInStock}</td>
                 <td>
                     <Button
-                        variant="outline-primary"
-                        // href={`${url}/../edit/${props.item.id}`}
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.preventDefault();
-                            changeContext('update', props.item.id, `${url}/../edit/${props.item.id}`)
-                        }}
-                        disabled={true}
+                        variant={editShouldEnable() ? "outline-primary" : "outline-secondary"}
+                        href={`${url}/../edit/${props.item.id}`}
+                        disabled={!editShouldEnable()}
                     >
                         <span className="fa fa-edit fa-lg"></span>
                     </Button>
                 </td>
                 <td>
-                    <Button variant="outline-danger" onClick={handleDeleteEvent}>
+                    <Button
+                        variant={deleteShouldEnable() ? "outline-danger" : "outline-secondary"}
+                        onClick={handleDeleteEvent}
+                        disabled={!deleteShouldEnable()}
+                    >
                         <span className="fa fa-trash-o fa-lg"></span>
                     </Button>
                 </td>
             </tr>
-            {/* <EditWindow
-                show={showEditWIndow}
-                onHide={closeEditWindow}
-                item={props.item}
-                update={props.update}
-            /> */}
         </>
     )
 }

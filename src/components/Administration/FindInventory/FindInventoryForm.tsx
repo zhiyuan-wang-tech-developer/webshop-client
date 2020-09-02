@@ -1,23 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Container, Accordion, Card, Form, Col, Row, Button, Jumbotron } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch, TypedUseSelectorHook, shallowEqual } from 'react-redux'
+import { useCookies } from 'react-cookie'
 import { useFormik } from 'formik'
 import { Response, get, put, del } from 'superagent'
-import FindResultsTable from './FindResultsTable'
-import { urlItems, urlItemsFind } from '../../../constants/config'
-import { Item } from '../../../utils/appTypes'
-import { findResults, findResultsOnCurrentPage } from '../../../actions/findActions'
+import FindResultsContainer from './FindResultsContainer'
+import { urlItems, COOKIE_KEY_FILTER_VALUES, COOKIE_KEY_FILTER_VALUES_VALID_TIME, FILTER_VALUES } from '../../../constants/config'
+import { Item, ExpiredTimeUnit, SortOrder } from '../../../utils/appTypes'
+import { findResults } from '../../../actions/findActions'
 import { RootState } from '../../../reducer/rootReducer'
-import PaginationBar from './PaginationBar'
 import { Typography } from '@material-ui/core'
-import { InventoryUpdateContext } from '../AddInventory/UpdateContext'
+import { getExpiredTime } from '../../../utils/helper'
 
-/**
- *  TODO:
- *  1. replace red feedback with popup window when mouse hover on.
- */
-const initialValues = {
+const defaultValues = {
     category: '',
     status: '',
     minPrice: '',
@@ -30,37 +26,49 @@ const initialValues = {
 }
 
 function FindInventoryForm() {
-    // const [itemsFound, setItemsFound] = useState<Item[]>([])
     const { search } = useLocation()
 
     const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
-    const itemsFound = useTypedSelector(state => state.foundResultState.items as Item[], shallowEqual)
-    const pageCurrent = useTypedSelector(state => state.foundResultState.currentPage)
+    const pageItems = useTypedSelector(state => state.foundResult.pageItems as Item[], shallowEqual)
+    const pageCurrent = useTypedSelector(state => state.foundResult.pageCurrent)
     const dispatch = useDispatch()
 
-    // const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
-    // const { operation, itemId: id } = updateContext
-    const activeUser = {}
-    const { submitForm, handleChange, handleBlur, handleReset, values, touched, errors, isValid } = useFormik(
+    const [cookies, setCookies, removeCookie] = useCookies([COOKIE_KEY_FILTER_VALUES])
+
+    const setCookiesOptions = () => {
+        return {
+            expires: getExpiredTime(ExpiredTimeUnit.SECOND, COOKIE_KEY_FILTER_VALUES_VALID_TIME)
+        }
+    }
+
+    const { submitForm, setValues, handleChange, handleBlur, handleReset, values, touched, errors, isValid } = useFormik(
         {
-            initialValues,
+            initialValues: (cookies[COOKIE_KEY_FILTER_VALUES]) ? cookies[COOKIE_KEY_FILTER_VALUES] : defaultValues,
             onSubmit: (values) => {
                 const queryParams = Object.fromEntries(Object.entries(values).filter(entry => entry[1] !== ''))
                 if (window.confirm(JSON.stringify(queryParams, null, 2))) {
                     findResults(queryParams, 1)(dispatch)
+                    setCookies(COOKIE_KEY_FILTER_VALUES, values, setCookiesOptions())
+                    sessionStorage.setItem(FILTER_VALUES, JSON.stringify(queryParams))
                 }
+            },
+            onReset: () => {
+                removeCookie(COOKIE_KEY_FILTER_VALUES)
+                sessionStorage.removeItem(FILTER_VALUES)
+                setValues(defaultValues, false)     // Set default values and do not submit form.
             }
         }
     )
 
     useEffect(() => {
-        // console.log("operation: ", operation)
         console.log("search: ", search)
         if (search) {
             values.id = search.split("=")[1]
             submitForm()
         }
         else {
+            console.log("cookie: ", cookies[COOKIE_KEY_FILTER_VALUES])
+            submitForm()
             console.log('pageCurrent after: ', pageCurrent)
             // console.log(pageCurrent)/
             // findResults({}, pageCurrent)(dispatch)
@@ -68,16 +76,21 @@ function FindInventoryForm() {
         }
     }, [search])
 
-    const getItems = () => {
-        get(`${urlItems}`)
-            .then((response: Response) => {
-                if (!response.body.items) {
-                    throw new Error("Can not get items!");
-                }
-                // setItemsFound([...response.body.items])
-            })
-            .catch(error => console.warn(error))
+    const sort = (sortPage: number, sortColumn: string, sortOrder: SortOrder) => {
+        const filterValues = sessionStorage.getItem(FILTER_VALUES)
+        const queryParams = filterValues ? JSON.parse(filterValues) : {}
+        findResults(queryParams, sortPage, sortColumn, sortOrder)(dispatch)
     }
+
+    // const getItems = () => {
+    //     get(`${urlItems}`)
+    //         .then((response: Response) => {
+    //             if (!response.body.items) {
+    //                 throw new Error("Can not get items!");
+    //             }
+    //         })
+    //         .catch(error => console.warn(error))
+    // }
 
     const updateItem = (item: Item) => {
         put(urlItems + `/${item.id}`)
@@ -87,13 +100,12 @@ function FindInventoryForm() {
                 if (!updatedItem) {
                     throw new Error("Can not get the updated item!");
                 }
-                const updatedItems = itemsFound.map(item => {
+                const updatedItems = pageItems.map(item => {
                     if (item.id !== updatedItem.id)
                         return item
                     else
                         return updatedItem
                 })
-                // setItemsFound(updatedItems)
             })
             .catch(console.warn)
     }
@@ -105,7 +117,7 @@ function FindInventoryForm() {
                 if (!itemIsDeleted) {
                     throw new Error("Can not delete the item!");
                 }
-                const updatedItems = itemsFound.filter(item => item.id !== itemId)
+                const updatedItems = pageItems.filter(item => item.id !== itemId)
                 // setItemsFound(updatedItems)
             })
             .catch(console.warn)
@@ -304,13 +316,13 @@ function FindInventoryForm() {
                     </Accordion.Collapse>
                 </Card>
             </Accordion>
-            <FindResultsTable
-                items={itemsFound as Item[]}
+            <FindResultsContainer
+                items={pageItems as Item[]}
                 update={updateItem}
                 delete={deleteItem}
+                sort={sort}
             />
-            <PaginationBar />
-        </Container>
+        </Container >
     )
 }
 

@@ -70,7 +70,7 @@ export function updateItem(itemToUpdate: Item) {
                 if (!response.body.updatedItem) {
                     throw new Error("Can not get the updated item!");
                 }
-                const { inventoryState } = getState()
+                const { inventory: inventoryState } = getState()
                 const updatedItems: Item[] = inventoryState.items.map((item: Item) => {
                     if (item.id === itemToUpdate.id) {
                         return itemToUpdate         // return updated item
@@ -95,7 +95,7 @@ export function deleteItem(itemId: number) {
                 if (!response.body.itemIsDeleted) {
                     throw new Error("Can not delete this item!");
                 }
-                const { inventoryState } = getState()
+                const { inventory: inventoryState } = getState()
                 const updatedItems: Item[] = inventoryState.items.filter((item: Item) => item.id !== itemId)
                 dispatch(updateItems(updatedItems))
             })

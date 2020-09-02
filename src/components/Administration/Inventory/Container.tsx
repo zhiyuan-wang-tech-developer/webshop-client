@@ -10,7 +10,7 @@ import { Dispatch, AnyAction, bindActionCreators } from "redux";
 
 const mapStateToProps = (state: RootState) => (
   {
-    items: state.inventoryState.items
+    items: state.inventory.items
   }
 )
 

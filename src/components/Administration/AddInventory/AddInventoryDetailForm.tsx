@@ -1,24 +1,21 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Form, Col, Row, Button } from 'react-bootstrap'
-import { useRouteMatch, useHistory } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Response, get, put } from 'superagent'
 import { urlItems } from '../../../constants/config'
-import { InventoryUpdateContext } from './UpdateContext'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../reducer/rootReducer'
-import { findResultsOnCurrentPage } from '../../../actions/findActions'
-import { debug } from 'console'
+import { findResults } from '../../../actions/findActions'
 
 const initialValues = {
     specification: '',
     usage: ''
 }
 
-// TODO: read this part of code
 const labels = (itemDetail: any) => {
-    let ret
+    let ret = null
     if (itemDetail) {
         ret = {
             formTitle: `Edit an item detail with ID: ${itemDetail.id}`,
@@ -50,12 +47,11 @@ function AddInventoryDetailForm() {
     const [itemDetailState, setItemDetailState] = useState(null)
     const { id }: any = params
 
-    const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
-    // const { itemId: id } = updateContext
-
     const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
-    const pageCurrent = useTypedSelector(state => state.foundResultState.currentPage)
+    const pageCurrent = useTypedSelector(state => state.foundResult.pageCurrent)
+
     const dispatch = useDispatch()
+
     const { submitForm, handleChange, handleBlur, setValues, values, touched, errors, isValid } = useFormik(
         {
             initialValues,
@@ -71,17 +67,13 @@ function AddInventoryDetailForm() {
                             if (!updatedItem) {
                                 throw new Error("Can not get the updated item!");
                             }
-                            console.log('add detail 73')
                             if (itemDetailState) {
-                                console.log('add detail 74')
-                                findResultsOnCurrentPage(id)(dispatch)
+                                findResults(undefined, pageCurrent)(dispatch)
                                 console.log('pageCurrent before: ', pageCurrent)
-                                alert()
-                                changeContext('update', id, `${url}/../../find`)
+                                window.location.pathname = `/admin/inventory/find`
                             }
                             else {
-                                console.log('add detail 78')
-                                changeContext('add', id, `${url}/../../find`)
+                                window.location.pathname = `/admin/inventory/find`
                             }
                         })
                         .catch(console.warn)
@@ -110,11 +102,6 @@ function AddInventoryDetailForm() {
             .catch(console.error)
     }, [id])
 
-    // const formTitle = () => {
-    //     return id ? (<h5>Edit an item with ID: {id}</h5>) : (<h5>Add a new item into inventory</h5>)
-    // }
-
-    // const buttonLab
     return (
         <Container fluid style={{
             paddingTop: 80,

@@ -1,10 +1,13 @@
 import React, { Component, ChangeEvent } from 'react'
 import { Container, Form, Col } from 'react-bootstrap'
 import { Response, get, post, del } from 'superagent'
-import { ApolloClient, InMemoryCache, gql, FetchResult } from '@apollo/client'
+// import { ApolloClient, InMemoryCache, gql, FetchResult } from '@apollo/client'
 import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core'
-import { urlAdminGroups, urlBaseGraphQL, urlTables, urlActions, urlAuthorities } from '../../../constants/config'
+import { Dispatch, AnyAction, bindActionCreators } from 'redux'
+import { ConnectedProps, connect } from 'react-redux'
+import { urlAdminGroups, urlTables, urlActions, urlAuthorities } from '../../../constants/config'
 import { Group, Table, Authority, AuthorityAction } from '../../../utils/appTypes'
+import { getTableActionsByAdminUser } from '../../../actions/loginAdminActions'
 
 type AuthorityContainerState = {
     groups: Group[],
@@ -20,12 +23,23 @@ type AuthorityContainerState = {
     disableOthers: boolean
 }
 
-const client = new ApolloClient({
-    uri: urlBaseGraphQL,
-    cache: new InMemoryCache()
-})
+// const client = new ApolloClient({
+//     uri: urlBaseGraphQL,
+//     cache: new InMemoryCache()
+// })
 
-class AuthorityContainer extends Component<any, AuthorityContainerState> {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
+    {
+        getTableActionsByAdminUser
+    },
+    dispatch
+)
+
+const connector = connect(null, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+class AuthorityContainer extends Component<PropsFromRedux, AuthorityContainerState> {
     state: AuthorityContainerState = {
         groups: [],
         tables: [],
@@ -271,6 +285,8 @@ class AuthorityContainer extends Component<any, AuthorityContainerState> {
                             checked: { ...this.state.checked, ...stateChecked },
                             disableOthers
                         })
+                        // update client's table actions after changing actions
+                        this.props.getTableActionsByAdminUser(3)
                     })
                 })
                 .catch(console.error)
@@ -461,4 +477,4 @@ class AuthorityContainer extends Component<any, AuthorityContainerState> {
     }
 }
 
-export default AuthorityContainer
+export default connector(AuthorityContainer)

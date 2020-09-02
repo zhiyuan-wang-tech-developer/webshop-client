@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { connect, ConnectedProps, useDispatch } from 'react-redux'
+import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Container, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import homeLogo from '../../icons/shoplogo.png'
 import chatIcon from '../../icons/chat.png'
@@ -6,14 +8,13 @@ import LoginIcon from '../Users/Login/Icon'
 import AvatarIcon from '../Users/Avatar/Icon'
 import ShoppingCartIcon from '../ShoppingCart/Icon'
 import { RootState } from '../../reducer/rootReducer'
-import { connect, ConnectedProps, useDispatch } from 'react-redux'
-import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { fetchCartItems, clearCart } from '../../actions/cartActions'
-import { get, Response } from "superagent";
+import { get, Response } from "superagent"
+import { urlCategory } from '../../constants/config'
 
 const mapStateToProps = (state: RootState) => (
     {
-        token: state.tokenState.token
+        token: state.token.token
     }
 )
 
@@ -41,7 +42,7 @@ function HomeNavBar(props: PropsTypeFromRedux) {
     const [categories, setCategories] = useState(new Array<string>(0))
 
     useEffect(() => {
-        get("http://localhost:3001/options/category")
+        get(urlCategory)
             .send()
             .then((response: Response) => {
                 setCategories(response.body.categories)

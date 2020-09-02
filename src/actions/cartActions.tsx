@@ -59,7 +59,7 @@ function decrementAmount(item: ItemOrder): CartAction {
 // Thunk Action Functions
 export function fetchCartItems() {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { tokenState } = getState()
+        const { token: tokenState } = getState()
 
         if (!tokenState.token) {
             console.warn("Token is not existing!")
@@ -102,7 +102,7 @@ export function fetchCartItems() {
 
 export function addToMyCart(itemId: number) {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { inventoryState, tokenState } = getState()
+        const { inventory: inventoryState, token: tokenState } = getState()
 
         let item = inventoryState.items.find((item: Item) => item.id === itemId)
 
@@ -142,7 +142,7 @@ export function addToMyCart(itemId: number) {
 
 export function removeFromMyCart(itemId: number) {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { cartState, tokenState } = getState()
+        const { cart: cartState, token: tokenState } = getState()
         const item = cartState.items.find((item: ItemOrder) => item.id === itemId)
 
         if (!item) {
@@ -178,7 +178,7 @@ export function removeFromMyCart(itemId: number) {
 
 export function clearMyCart() {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { tokenState } = getState()
+        const { token: tokenState } = getState()
 
         if (!tokenState.token) {
             console.warn("Token is not existing!")
@@ -208,7 +208,7 @@ export function clearMyCart() {
 
 export function incrementAmountInMyCart(item: ItemOrder) {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { tokenState } = getState()
+        const { token: tokenState } = getState()
 
         if (!tokenState.token) {
             console.warn("Token is not existing!")
@@ -241,7 +241,7 @@ export function incrementAmountInMyCart(item: ItemOrder) {
 
 export function decrementAmountInMyCart(item: ItemOrder) {
     return (dispatch: Dispatch<CartAction | FeedbackAction>, getState: () => RootState) => {
-        const { tokenState } = getState()
+        const { token: tokenState } = getState()
 
         if (!tokenState.token) {
             console.warn("Token is not existing!")

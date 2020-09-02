@@ -45,9 +45,6 @@ function AddInventoryForm() {
     const { url, params } = useRouteMatch()
     const { id }: any = params
 
-    // const { updateContext, changeContext }: any = useContext(InventoryUpdateContext)
-    // const { itemId: id } = updateContext
-
     const { submitForm, handleChange, handleBlur, setValues, values, touched, errors, isValid } = useFormik(
         {
             initialValues,

@@ -12,6 +12,6 @@ const composeEnhancers = composeWithDevTools({
 const enhancer = composeEnhancers(applyMiddleware(reduxThunkMiddleware))
 
 // create global redux store
-const GlobalReduxStore = createStore(rootReducer, enhancer)
+const globalStore = createStore(rootReducer, enhancer)
 
-export default GlobalReduxStore
+export default globalStore

@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { get, Response } from "superagent"
 import { useFormik } from 'formik'
 import { RegisterUser } from '../../../utils/appTypes'
-import { Register } from '../../../actions/loginActions'
+import { Register } from '../../../actions/loginUserActions'
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 

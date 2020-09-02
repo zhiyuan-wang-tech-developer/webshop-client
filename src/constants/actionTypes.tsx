@@ -20,3 +20,11 @@ export const CLEAR_JSON_WEB_TOKEN = "CLEAR_JSON_WEB_TOEKN"
 // find action types
 export const UPDATE_FOUND_RESULTS = "UPDATE_FOUND_RESULTS"
 export const CLEAR_FOUND_RESULTS = "CLEAR_FOUND_RESULTS"
+
+// admin user types
+export const STORE_ADMIN_USER = "STORE_ADMIN_USER"
+export const CLEAR_ADMIN_USER = "CLEAR_ADMIN_USER"
+
+// table actions type
+export const UPDATE_TABLE_ACTIONS = "UPDATE_TABLE_ACTIONS"
+export const CLEAR_TABLE_ACTIONS = "CLEAR_TABLE_ACTIONS"

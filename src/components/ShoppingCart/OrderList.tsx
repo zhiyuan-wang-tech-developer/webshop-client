@@ -8,7 +8,7 @@ import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 
 const mapStateToProps = (state: RootState) => (
     {
-        items: state.cartState.items
+        items: state.cart.items
     }
 )
 

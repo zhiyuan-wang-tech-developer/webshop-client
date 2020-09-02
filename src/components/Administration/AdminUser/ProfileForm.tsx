@@ -4,6 +4,7 @@ import { Response, get } from 'superagent'
 import * as Yup from 'yup'
 import { urlAdminGroups } from '../../../constants/config'
 import { AdminUser, Group } from '../../../utils/appTypes'
+import { isSystemAdmin } from '../../../utils/helper'
 
 export const initialValues: AdminUser = {
     name: '',
@@ -58,7 +59,7 @@ export default function ProfileForm(props: { formik: any }) {
                 setAvailableGroups(availableGroups)
             })
             .catch(console.warn)
-    })
+    }, [])
 
     /**
      * This method is to select a group from the given groups (either availableGroups or assignedGroups). 
@@ -185,60 +186,62 @@ export default function ProfileForm(props: { formik: any }) {
                     <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                 </Form.Group>
             </Form.Row>
-            <Form.Row>
-                <Form.Group controlId="availableGroupForm" as={Col}>
-                    <Form.Label>Available Groups</Form.Label>
-                    <Form.Control
-                        name="availableGroups"
-                        as="select"
-                        size="sm"
-                        // onClick={selectAvailableGroup}
-                        onClick={selectGroup(availableGroups, setGroupToAssign)}
-                        onBlur={handleBlur}
-                        isValid={touched.adminUserGroups && !errors.adminUserGroups}
-                        isInvalid={!!errors.adminUserGroups}
-                    >
-                        <option selected>Choose group to assign</option>
-                        {availableGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
-                    </Form.Control>
-                    <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>
-                    <br />
-                    <Button
-                        variant="info"
-                        size="sm"
-                        disabled={!(availableGroups.length > 0)}
-                        style={{ width: "200px" }}
-                        onClick={addUserToGroup}
-                    >Assign user to groups</Button>
-                </Form.Group>
-                <Form.Group controlId="assignedGroupForm" as={Col}>
-                    <Form.Label>Assigned Groups</Form.Label>
-                    <Form.Control
-                        name="assignedGroups"
-                        as="select"
-                        size="sm"
-                        // onClick={selectAssignedGroup}
-                        onClick={selectGroup(assignedGroups, setGroupToRemove)}
-                        onBlur={handleBlur}
-                        isValid={touched.adminUserGroups && !errors.adminUserGroups}
-                        isInvalid={!!errors.adminUserGroups}
-                    >
-                        <option selected>Choose group to remove</option>
-                        {assignedGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
-                    </Form.Control>
-                    <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>
-                    <br />
-                    <Button
-                        variant="info"
-                        size="sm"
-                        onClick={removeUserFromGroup}
-                        disabled={!(assignedGroups.length > 0)}
-                        style={{ width: "200px" }}
-                    >Remove user from groups</Button>
-                </Form.Group>
-            </Form.Row>
+            {isSystemAdmin() ? (
+                <Form.Row>
+                    <Form.Group controlId="availableGroupForm" as={Col}>
+                        <Form.Label>Available Groups</Form.Label>
+                        <Form.Control
+                            name="availableGroups"
+                            as="select"
+                            size="sm"
+                            // onClick={selectAvailableGroup}
+                            onClick={selectGroup(availableGroups, setGroupToAssign)}
+                            onBlur={handleBlur}
+                            isValid={touched.adminUserGroups && !errors.adminUserGroups}
+                            isInvalid={!!errors.adminUserGroups}
+                        >
+                            <option selected>Choose group to assign</option>
+                            {availableGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
+                        </Form.Control>
+                        <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>
+                        <br />
+                        <Button
+                            variant="info"
+                            size="sm"
+                            disabled={!(availableGroups.length > 0)}
+                            style={{ width: "200px" }}
+                            onClick={addUserToGroup}
+                        >Assign user to groups</Button>
+                    </Form.Group>
+                    <Form.Group controlId="assignedGroupForm" as={Col}>
+                        <Form.Label>Assigned Groups</Form.Label>
+                        <Form.Control
+                            name="assignedGroups"
+                            as="select"
+                            size="sm"
+                            // onClick={selectAssignedGroup}
+                            onClick={selectGroup(assignedGroups, setGroupToRemove)}
+                            onBlur={handleBlur}
+                            isValid={touched.adminUserGroups && !errors.adminUserGroups}
+                            isInvalid={!!errors.adminUserGroups}
+                        >
+                            <option selected>Choose group to remove</option>
+                            {assignedGroups.map((group: Group, index: number) => <option key={index} value={group.id} label={group.name}>{group.name}</option>)}
+                        </Form.Control>
+                        <Form.Control.Feedback type="valid">Correct!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">{errors.group}</Form.Control.Feedback>
+                        <br />
+                        <Button
+                            variant="info"
+                            size="sm"
+                            onClick={removeUserFromGroup}
+                            disabled={!(assignedGroups.length > 0)}
+                            style={{ width: "200px" }}
+                        >Remove user from groups</Button>
+                    </Form.Group>
+                </Form.Row>
+            ) : null}
         </Form >
     )
 }

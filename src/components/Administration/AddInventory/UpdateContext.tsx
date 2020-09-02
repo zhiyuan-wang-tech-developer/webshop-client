@@ -5,11 +5,6 @@ type UpdateContext = {
     itemId: number | null,
 }
 
-const defaultUpdateContext = {
-    operation: null,
-    itemId: null
-}
-
 export const InventoryUpdateContext = createContext<unknown>(null)
 
 export class InventoryUpdateContextProvider extends Component {
@@ -23,8 +18,6 @@ export class InventoryUpdateContextProvider extends Component {
             operation,
             itemId
         }, () => {
-            console.log("change operation to: ", operation)
-            console.log("change item id to: ", itemId)
             if (link) {
                 window.location.href = link
             }

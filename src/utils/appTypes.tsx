@@ -12,6 +12,8 @@ export type LoginUser = {
     password: string
 }
 
+export type LoginAdmin = LoginUser
+
 export type RegisterUser = {
     name: string,
     email: string,
@@ -91,10 +93,32 @@ export type AdminUser = {
     adminUserGroups: Group[]
 }
 
+export type AdminUserState = {
+    adminUser: AdminUser | null,
+}
+
+export type AdminUserAction = {
+    type: string,
+    payload: { adminUser: AdminUser | null }
+}
+
 export type Table = {
     id?: number,
     name: string,
     description: string
+}
+
+export type TableAction = {
+    tableId: number;
+    tableName: string;
+    actions: AuthorityAction[];
+}
+
+export type TableActionsState = TableAction[]
+
+export type TableActionsAction = {
+    type: string,
+    payload: TableActionsState
 }
 
 export type Authority = {
@@ -113,13 +137,25 @@ export enum AuthorityAction {
 }
 
 export type FoundResultState = {
-    items: Item[],
-    itemsTotalCount: number,
-    currentPage: number,
-    totalPages: number
+    itemsTotal: number,
+    pageItems: Item[],
+    pageCurrent: number,
+    pageTotal: number
 }
 
 export type FoundResultAction = {
     type: string,
     payload?: { result: FoundResultState }
+}
+
+export enum ExpiredTimeUnit {
+    SECOND = "second",
+    MINUTE = "minute",
+    HOUR = "hour",
+    DAY = "day"
+}
+
+export enum SortOrder {
+    ASCEND = 'ASC',
+    DESCEND = 'DESC',
 }
