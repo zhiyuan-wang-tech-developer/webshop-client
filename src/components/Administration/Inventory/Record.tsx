@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import ModifyWindow from './ModifyWindow'
-import { Item } from '../../../utils/appTypes'
-import { deleteItem } from "../../../actions/inventoryActions"
+import ModifyWindow from './modify.window'
+import { Item } from '../../../utils/app.types'
+import { deleteItem } from "../../../actions/inventory.actions"
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Container } from 'react-bootstrap'
-import GroupRecord from './Record'
-import { Group } from '../../../utils/appTypes'
+import GroupRecord from './record'
+import { Group } from '../../../utils/app.types'
 
 type GroupTableProps = {
     groups: Group[],

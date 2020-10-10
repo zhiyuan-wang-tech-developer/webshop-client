@@ -6,8 +6,8 @@ import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelp
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
 import { ConnectedProps, connect } from 'react-redux'
 import { urlAdminGroups, urlTables, urlActions, urlAuthorities } from '../../../constants/config'
-import { Group, Table, Authority, AuthorityAction } from '../../../utils/appTypes'
-import { getTableActionsByAdminUser } from '../../../actions/loginAdminActions'
+import { Group, Table, Authority, AuthorityAction } from '../../../utils/app.types'
+import { getTableActionsByAdminUser } from '../../../actions/login.admin.actions'
 
 type AuthorityContainerState = {
     groups: Group[],

@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { Response, get, post, put, del } from 'superagent'
 import { Navbar } from 'react-bootstrap'
-import GroupTable from './Table'
-import OperateWindow from './OperateWindow'
+import GroupTable from './table'
+import OperateWindow from './operate.window'
 import { urlAdminGroups } from '../../../constants/config'
-import { Group } from "../../../utils/appTypes"
+import { Group } from "../../../utils/app.types"
 
 type GroupContainerState = {
   groups: Group[],

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import LoginForm from "./Form"
-import RegisterForm from './Register'
-import { ModalWindowProps } from '../../../utils/appTypes'
+import LoginForm from "./form"
+import RegisterForm from './register'
+import { ModalWindowProps } from '../../../utils/app.types'
 
 enum FormType { Login = 1, Register = 2 }
 

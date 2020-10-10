@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import globalStore from './store/store';
-import HomePage from './components/Home/HomePage';
-import AdminPage from './components/Administration/AdminPage';
-import AdminLoginContainer from './components/Administration/Login/AdminLoginContainer';
+import HomePage from './components/home/home.page';
+import AdminPage from './components/administration/admin.page';
+import AdminLoginContainer from './components/administration/login/admin.login.container';
 
 function Main() {
   return (

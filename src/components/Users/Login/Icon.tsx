@@ -1,6 +1,6 @@
 import React from "react"
 import { Nav, OverlayTrigger, Tooltip, Image } from 'react-bootstrap'
-import LoginWindow from './Window'
+import LoginWindow from './window'
 import loginIcon from '../../../icons/login.png'
 
 function LoginIcon() {

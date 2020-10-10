@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
-import OperateWindow from './OperateWindow'
-import { Group } from '../../../utils/appTypes'
+import OperateWindow from './operate.window'
+import { Group } from '../../../utils/app.types'
 
 type GroupRecordProps = {
     group: Group

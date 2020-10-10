@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { ExpiredTimeUnit } from "./appTypes";
+import { ExpiredTimeUnit } from "./app.types";
 import { COOKIE_KEY_ADMIN } from '../constants/config'
 
 export function getExpiredTime(unit: ExpiredTimeUnit, time: number): Date {

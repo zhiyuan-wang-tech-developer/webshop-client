@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxThunkMiddleware from 'redux-thunk'
-import rootReducer from '../reducer/rootReducer'
+import rootReducer from '../reducer/root.reducer'
 
 // support the redux devtools
 const composeEnhancers = composeWithDevTools({

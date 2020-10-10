@@ -1,7 +1,7 @@
 import React from 'react'
 import avatar from '../../../icons/avatar.png'
 import { Nav, OverlayTrigger, Tooltip, Image } from 'react-bootstrap'
-import AvatarWindow from './Window'
+import AvatarWindow from './window'
 
 function AvatarIcon() {
     const [avatarWindowShow, setAvatarWindowShow] = React.useState(false)

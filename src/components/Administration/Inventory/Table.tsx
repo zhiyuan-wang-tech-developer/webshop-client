@@ -1,8 +1,8 @@
 import React from 'react'
 import { Table, Container } from 'react-bootstrap'
-import InventoryRecord from './Record'
-import { Item } from '../../../utils/appTypes'
-import { useSortableData } from '../../../utils/sortHook'
+import InventoryRecord from './record'
+import { Item } from '../../../utils/app.types'
+import { useSortableData } from '../../../utils/sort.hook'
 import { Button } from '@material-ui/core'
 
 export const InventoryRecordExample: Item = {

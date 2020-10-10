@@ -1,9 +1,9 @@
 import React from 'react'
 import { Form, Button, Col, Row } from 'react-bootstrap'
-import { FormProps, LoginUser } from '../../../utils/appTypes'
+import { FormProps, LoginUser } from '../../../utils/app.types'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { Login } from '../../../actions/loginUserActions'
+import { Login } from '../../../actions/login.user.actions'
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 

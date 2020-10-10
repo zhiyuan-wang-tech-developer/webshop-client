@@ -15,6 +15,7 @@ export const urlUsers = `${urlBase}/users`
 export const urlLogin = `${urlBase}/users/login`
 export const urlItems = `${urlBase}/items`
 export const urlItemsFind = `${urlBase}/items/find`
+export const urlItemsFindPage = `${urlBase}/items/find/page`
 export const urlCart = `${urlBase}/cart`
 export const urlCartItem = `${urlBase}/cart/item`
 export const urlCategory = `${urlBase}/options/category`

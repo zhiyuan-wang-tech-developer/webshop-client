@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Button, ListGroup } from 'react-bootstrap'
-import { ModalWindowProps } from '../../../utils/appTypes'
-import { RootState } from '../../../reducer/rootReducer'
+import { ModalWindowProps } from '../../../utils/app.types'
+import { RootState } from '../../../reducer/root.reducer'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, AnyAction, bindActionCreators } from 'redux'
-import { Logout } from '../../../actions/loginUserActions'
+import { Logout } from '../../../actions/login.user.actions'
 import { decode } from 'jsonwebtoken'
 
 const mapStateToProps = (state: RootState) => (
